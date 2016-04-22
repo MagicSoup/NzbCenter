@@ -8,7 +8,7 @@ mainCtrl.controller('nzbgetCtrl', [
 
       $scope.testLogger = function() {
         loggerService.turnOn();
-        loggerService.log('TEST Injection Service');
+        loggerService.log('LOGGING nzbget nzbget...');
       };
     }]
 );

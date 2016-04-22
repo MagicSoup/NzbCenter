@@ -1,3 +1,1 @@
-angular.module( 'mainCtrl',
-  ['ngCordova','services']
-);
+angular.module( 'mainCtrl', ['ngCordova','services']);

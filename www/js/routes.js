@@ -3,10 +3,30 @@ angular.module('nzb-manager')
 
     $stateProvider
       .state('app', {
-        url: '/example',
+        url: '/nzb-manager',
         abstract: true,
-        templateUrl: 'templates/example/menu.html',
-        controller: 'loginCtrl'
+        templateUrl: 'templates/menu.html',
+        controller: 'configCtrl'
+      })
+
+      .state('app.config', {
+        url: '/config',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/config.html',
+            controller: 'configCtrl'
+          }
+        }
+      })
+
+      .state('app.search', {
+        url: '/search',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search.html',
+            controller: 'searchCtrl'
+          }
+        }
       })
 
       .state('app.nzbget', {
@@ -19,42 +39,18 @@ angular.module('nzb-manager')
         }
       })
 
-      .state('app.search', {
-        url: '/search',
+      .state('app.sabnzbd', {
+        url: '/sabnzbd',
         views: {
           'menuContent': {
-            templateUrl: 'templates/example/search.html'
+            templateUrl: 'templates/grabbers/sabnzbd.html',
+            controller: 'sabnzbdCtrl'
           }
         }
-      })
-      .state('app.browse', {
-        url: '/browse',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/example/browse.html'
-          }
-        }
-      })
-      .state('app.playlists', {
-        url: '/playlists',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/example/playlists.html',
-            controller: 'playlistsCtrl'
-          }
-        }
-      })
+      }
 
-      .state('app.single', {
-        url: '/playlists/:playlistId',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/example/playlist.html',
-            controller: 'playlistCtrl'
-          }
-        }
-      });
+    );
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/example/playlists');
+    $urlRouterProvider.otherwise('/nzb-manager/search');
   });
