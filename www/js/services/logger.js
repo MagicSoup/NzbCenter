@@ -1,7 +1,7 @@
 var services = angular.module('services');
 
 services.factory('loggerService', function () {
-  var logger = {};
+  var currentService = {};
 
   var active = false;
 
@@ -16,15 +16,15 @@ services.factory('loggerService', function () {
     return datetime;
   }
 
-  logger.turnOn = function () {
+  currentService.turnOn = function () {
     active = true;
   };
 
-  logger.turnOff = function () {
+  currentService.turnOff = function () {
     active = false;
   };
 
-  logger.log = function (msg, type) {
+  currentService.log = function (msg, type) {
     var type = type || '';
 
     if (console && active) {
@@ -47,5 +47,5 @@ services.factory('loggerService', function () {
     }
   };
 
-  return logger;
+  return currentService;
 });

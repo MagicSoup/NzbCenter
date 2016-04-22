@@ -1,13 +1,16 @@
 <ion-view view-title="nzbget">
   <ion-content>
     <h1>Nzbget</h1>
-    <form ng-submit="testLogger()">
+    <form ng-submit="getServerConfig()">
       <div class="list">
         <label class="item">
           <button class="button button-block button-positive" type="submit">Test Logger</button>
         </label>
       </div>
     </form>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item ng-repeat="data in datas">{{data.Name}} => {{data.Value}}</ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
 
