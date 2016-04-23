@@ -1,12 +1,38 @@
-angular.module('mainCtrl')
+var mainCtrl = angular.module('mainCtrl');
 
-  .controller('searchCtrl', function ($scope, $timeout) {
+mainCtrl.controller('searchCtrl', [
+    '$scope',
+    'loggerService',
+    'binsearchService',
+    'nzbindexService',
+    function ($scope, loggerService, binsearchService, nzbindexService) {
 
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-  }
+      $scope.datas = [];
+      $scope.isFullyLoaded = false;
+
+      $scope.useNzbindex = function () {
+        $scope.datas = [];
+        $scope.isFullyLoaded = false;
+        nzbindexService.search().then(function (result) {
+
+          loggerService.turnOn();
+
+          //TODO
+
+          $scope.isFullyLoaded = false;
+        })
+      };
+      $scope.useBinsearch = function () {
+        $scope.datas = [];
+        $scope.isFullyLoaded = false;
+        binsearchService.search().then(function (result) {
+
+          loggerService.turnOn();
+
+          //TODO
+
+          $scope.isFullyLoaded = false;
+        })
+      };
+    }]
 );

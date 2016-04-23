@@ -9,26 +9,20 @@ mainCtrl.controller('nzbgetCtrl', [
       $scope.datas = [];
       $scope.isFullyLoaded = false;
 
-      $scope.testLogger = function () {
-        loggerService.turnOn();
-        loggerService.log('LOGGING nzbget nzbget...');
-      };
-
       $scope.getServerConfig = function () {
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        nzbgetService.getServerConfig().then(function (configJson) {
+        nzbgetService.getServerConfig().then(function (config) {
 
           loggerService.turnOn();
 
-          $scope.datas = configJson.data.result;
+          $scope.datas = config.data.result;
           angular.forEach($scope.datas, function (data) {
             loggerService.log(data.Name + ' => ' + data.Value);
           });
 
           $scope.isFullyLoaded = true;
         });
-
       };
 
     }]

@@ -8,5 +8,15 @@
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
+  ],
+  "proxies": [
+    {
+      "path": "/rss",
+      "proxyUrl": "http://www.nzbindex.nl/rss"
+    },
+    {
+      "path": "/binsearch",
+      "proxyUrl": "https://www.binsearch.info"
+    }
   ]
 }
