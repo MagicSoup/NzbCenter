@@ -24,8 +24,22 @@
         </label>
       </div>
     </form>
+
+    <form ng-submit="submitNzbclub()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Filter :</span>
+          <input type="text" name="filterNzbclub" ng-model="filters.nzbclub" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">searchNzbclub</button>
+        </label>
+      </div>
+    </form>
+
     <ion-list ng-show="isFullyLoaded">
       <ion-item ng-repeat="data in datas" href="{{data.link}}">{{data.title}} => {{data.publicationDate}}</ion-item>
     </ion-list>
   </ion-content>
+
 </ion-view>

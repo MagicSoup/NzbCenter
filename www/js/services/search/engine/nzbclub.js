@@ -1,17 +1,17 @@
 var services = angular.module('services');
 
-services.factory('nzbindexService', [
+services.factory('nzbclubService', [
   '$http',
   '$q',
   'loggerService',
-  'nzbindexEndpoint',
-  function ($http, $q, loggerService, nzbindexEndpoint) {
+  'nzbclubEndpoint',
+  function ($http, $q, loggerService, nzbclubEndpoint) {
 
     var currentService = {};
 
     currentService.search = function (title) {
       var deferred = $q.defer();
-      var searchUrl = buildSearchUrl(nzbindexEndpoint, title);
+      var searchUrl = buildSearchUrl(nzbclubEndpoint, title);
       loggerService.turnOn();
       loggerService.log('Search url : ' + searchUrl);
 

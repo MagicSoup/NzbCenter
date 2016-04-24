@@ -5,17 +5,32 @@ mainCtrl.controller('searchCtrl', [
     'loggerService',
     'binsearchService',
     'nzbindexService',
-    function ($scope, loggerService, binsearchService, nzbindexService) {
+    'nzbclubService',
+    function ($scope,
+              loggerService,
+              binsearchService,
+              nzbindexService,
+              nzbclubService) {
 
       $scope.filters = {
-        binsearch: '',
-        nzbindex: ''
+        binsearch: 'johnossi',
+        nzbindex: 'johnossi',
+        nzbclub: 'johnossi'
       };
 
       $scope.datas = [];
       $scope.isFullyLoaded = false;
 
       loggerService.turnOn();
+
+      $scope.submitNzbclub = function () {
+        $scope.datas = [];
+        $scope.isFullyLoaded = false;
+        nzbclubService.search($scope.filters.nzbclub).then(function (datas) {
+          $scope.datas = datas;
+          $scope.isFullyLoaded = true;
+        })
+      };
 
       $scope.submitNzbindex = function () {
         $scope.datas = [];
@@ -25,15 +40,15 @@ mainCtrl.controller('searchCtrl', [
           $scope.isFullyLoaded = true;
         })
       };
+
       $scope.submitBinsearch = function () {
         $scope.datas = [];
         $scope.isFullyLoaded = false;
         binsearchService.search($scope.filters.binsearch).then(function (datas) {
-
-          //TODO
-
-          $scope.isFullyLoaded = false;
+          $scope.datas = datas;
+          $scope.isFullyLoaded = true;
         })
       };
+
     }]
 );

@@ -11,16 +11,16 @@
   ],
   "proxies": [
     {
-      "path": "/rss",
-      "proxyUrl": "http://www.nzbindex.nl/rss"
+      "path": "/rss/",
+      "proxyUrl": "http://www.nzbindex.nl/rss/"
     },
     {
-      "path": "/binsearch",
-      "proxyUrl": "https://www.binsearch.info"
+      "path": "/rss.php",
+      "proxyUrl": "http://rss.binsearch.net/rss.php"
     },
     {
-      "path": "/ajax",
-      "proxyUrl": "http://ajax.googleapis.com/ajax"
+      "path": "/nzbrss.aspx",
+      "proxyUrl": "https://www.nzbclub.com/nzbrss.aspx"
     }
   ]
 }
