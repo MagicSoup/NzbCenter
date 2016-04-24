@@ -7,27 +7,28 @@ mainCtrl.controller('searchCtrl', [
     'nzbindexService',
     function ($scope, loggerService, binsearchService, nzbindexService) {
 
+      $scope.filters = {
+        binsearch: '',
+        nzbindex: ''
+      };
+
       $scope.datas = [];
       $scope.isFullyLoaded = false;
 
-      $scope.useNzbindex = function () {
+      loggerService.turnOn();
+
+      $scope.submitNzbindex = function () {
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        nzbindexService.search().then(function (result) {
-
-          loggerService.turnOn();
-
-          //TODO
-
-          $scope.isFullyLoaded = false;
+        nzbindexService.search($scope.filters.nzbindex).then(function (datas) {
+          $scope.datas = datas;
+          $scope.isFullyLoaded = true;
         })
       };
-      $scope.useBinsearch = function () {
+      $scope.submitBinsearch = function () {
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        binsearchService.search().then(function (result) {
-
-          loggerService.turnOn();
+        binsearchService.search($scope.filters.binsearch).then(function (datas) {
 
           //TODO
 

@@ -17,6 +17,10 @@
     {
       "path": "/binsearch",
       "proxyUrl": "https://www.binsearch.info"
+    },
+    {
+      "path": "/ajax",
+      "proxyUrl": "http://ajax.googleapis.com/ajax"
     }
   ]
 }

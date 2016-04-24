@@ -8,8 +8,8 @@ services.factory('binsearchService', [
 
     var currentService = {};
 
-    currentService.search = function () {
-      var searchUrl = buildSearchUrl(binsearchEndpoint, 'toto');
+    currentService.search = function (title) {
+      var searchUrl = buildSearchUrl(binsearchEndpoint, title);
       loggerService.turnOn();
       loggerService.log('Search url : ' + searchUrl);
       return $http({
