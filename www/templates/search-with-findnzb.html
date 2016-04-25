@@ -1,0 +1,19 @@
+<ion-view view-title="searchWithFindnzb">
+  <ion-content>
+    <h1>Rechercher avec Findnzb</h1>
+    <form ng-submit="submitFindnzb()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Filter :</span>
+          <input type="text" name="filterFindnzb" ng-model="filters.findnzb" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Rechercher</button>
+        </label>
+      </div>
+    </form>
+    <ion-list ng-show="isFullyLoadedFindNzb">
+      <ion-item ng-repeat="data in datas" ng-click="extractRealDownloadUrlForFindNzb(data.link)">{{data.title}}</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

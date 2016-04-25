@@ -25,7 +25,12 @@ services.factory('nzbclubService', [
           var x2js = new X2JS();
           var channelJson = x2js.xml_str2json(resp).rss.channel;
           angular.forEach(channelJson.item, function (item) {
-            datas.push({'title': item.title, 'publicationDate': item.pubDate, 'link': item.enclosure.url});
+            datas.push({
+              'title': item.title,
+              'publicationDate': item.pubDate,
+              'link': item.enclosure._url,
+              'length': item.enclosure._length
+            });
           });
           deferred.resolve(datas);
         })
@@ -38,9 +43,10 @@ services.factory('nzbclubService', [
     };
 
     return currentService;
+
+    function buildSearchUrl(endpoint, filter) {
+      var searchUrl = endpoint.url + '?q=' + filter + '&de=27&st=1&ns=0';
+      return searchUrl;
+    };
   }
 ]);
-function buildSearchUrl(endpoint, filter) {
-  var searchUrl = endpoint.url + '?q=' + filter + '&max=10&sort=agedesc';
-  return searchUrl;
-}

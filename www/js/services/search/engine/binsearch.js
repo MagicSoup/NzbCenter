@@ -25,7 +25,11 @@ services.factory('binsearchService', [
           var x2js = new X2JS();
           var channelJson = x2js.xml_str2json(resp).rss.channel;
           angular.forEach(channelJson.item, function (item) {
-            datas.push({'title': item.title, 'publicationDate': item.pubDate, 'link': item.link});
+            datas.push({
+              'title': item.title,
+              'publicationDate': item.pubDate,
+              'link': item.link
+            });
           });
           deferred.resolve(datas);
         })
@@ -38,9 +42,10 @@ services.factory('binsearchService', [
     };
 
     return currentService;
+
+    function buildSearchUrl(endpoint, filter) {
+      var searchUrl = endpoint.url + '?q=' + filter + '&g=*&sort=agedesc&max=10';
+      return searchUrl;
+    };
   }
 ]);
-function buildSearchUrl(endpoint, filter) {
-  var searchUrl = endpoint.url + '?q=' + filter + '&sort=agedesc&max=10&g=*';
-  return searchUrl;
-}

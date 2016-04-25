@@ -1,17 +1,15 @@
 var services = angular.module('services');
 
-services.factory('nzbindexService', [
+services.factory('searchEngineService', [
   '$http',
   '$q',
   'loggerService',
-  'nzbindexEndpoint',
-  function ($http, $q, loggerService, nzbindexEndpoint) {
+  function ($http, $q, loggerService) {
 
     var currentService = {};
 
-    currentService.search = function (title) {
+    currentService.search = function (searchUrl) {
       var deferred = $q.defer();
-      var searchUrl = buildSearchUrl(nzbindexEndpoint, title);
       loggerService.turnOn();
       loggerService.log('Search url : ' + searchUrl);
 
@@ -25,7 +23,23 @@ services.factory('nzbindexService', [
           var x2js = new X2JS();
           var channelJson = x2js.xml_str2json(resp).rss.channel;
           angular.forEach(channelJson.item, function (item) {
-            datas.push({'title': item.title, 'publicationDate': item.pubDate, 'link': item.enclosure.url});
+            if ((typeof item.enclosure != 'undefined')) {
+              var data = {
+                'title': item.title,
+                'publicationDate': item.pubDate,
+                'link': item.enclosure._url,
+                'length': item.enclosure._length
+              };
+              datas.push(data);
+            } else {
+              var data = {
+                'title': item.title,
+                'publicationDate': item.pubDate,
+                'link': item.link,
+                'length': 0
+              };
+              datas.push(data);
+            }
           });
           deferred.resolve(datas);
         })
@@ -34,13 +48,9 @@ services.factory('nzbindexService', [
           deferred.reject(err);
         });
 
-      return deferred.promise
+      return deferred.promise;
     };
 
     return currentService;
   }
 ]);
-function buildSearchUrl(endpoint, filter) {
-  var searchUrl = endpoint.url + '?q=' + filter + '&max=10&sort=agedesc';
-  return searchUrl;
-}

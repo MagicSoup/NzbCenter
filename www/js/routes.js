@@ -19,11 +19,21 @@ angular.module('nzb-manager')
         }
       })
 
-      .state('app.search', {
-        url: '/search',
+      .state('app.searchWithNzbclub', {
+        url: '/searchWithNzbclub',
         views: {
           'menuContent': {
-            templateUrl: 'templates/search.html',
+            templateUrl: 'templates/search-with-nzbclub.html',
+            controller: 'searchCtrl'
+          }
+        }
+      })
+
+      .state('app.searchWithFindnzb', {
+        url: '/searchWithFindnzb',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search-with-findnzb.html',
             controller: 'searchCtrl'
           }
         }
@@ -52,5 +62,5 @@ angular.module('nzb-manager')
     );
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/nzb-manager/search');
+    $urlRouterProvider.otherwise('/nzb-manager/config');
   });

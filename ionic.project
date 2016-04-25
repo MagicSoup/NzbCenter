@@ -11,12 +11,12 @@
   ],
   "proxies": [
     {
-      "path": "/rss/",
-      "proxyUrl": "http://www.nzbindex.nl/rss/"
+      "path": "/rss",
+      "proxyUrl": "http://findnzb.net/rss"
     },
     {
-      "path": "/rss.php",
-      "proxyUrl": "http://rss.binsearch.net/rss.php"
+      "path": "/nzb",
+      "proxyUrl": "http://findnzb.net/nzb"
     },
     {
       "path": "/nzbrss.aspx",
