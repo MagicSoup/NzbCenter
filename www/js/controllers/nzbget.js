@@ -16,12 +16,21 @@ mainCtrl.controller('nzbgetCtrl', [
 
           loggerService.turnOn();
 
-          $scope.datas = config.data.result;
+          $scope.datas = config.result;
           angular.forEach($scope.datas, function (data) {
             loggerService.log(data.Name + ' => ' + data.Value);
           });
 
           $scope.isFullyLoaded = true;
+        });
+      };
+
+      $scope.sendNzbFile = function () {
+        $scope.isFullyLoaded = false;
+        nzbgetService.sendNzbFile().then(function (resp) {
+
+          loggerService.turnOn();
+          loggerService.log('Inside controler : ' + resp);
         });
       };
 

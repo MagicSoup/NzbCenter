@@ -11,6 +11,10 @@
   ],
   "proxies": [
     {
+      "path": "/nzbget",
+      "proxyUrl": "https://campi-nas.net/nzbget"
+    },
+    {
       "path": "/rss",
       "proxyUrl": "http://findnzb.net/rss"
     },
