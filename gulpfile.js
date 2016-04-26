@@ -56,7 +56,7 @@ gulp.task('git-check', function(done) {
 gulp.task('add-proxies', function() {
   replace({
     regex: "https://www.nzbclub.com/nzbrss.aspx",
-    replacement: "http://localhost:8100/nzbget",
+    replacement: "http://localhost:8100/nzbrss.aspx",
     paths: replaceFiles,
     recursive: false,
     silent: false
