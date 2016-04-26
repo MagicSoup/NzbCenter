@@ -1,0 +1,25 @@
+{
+  "name": "angular-utf8-base64",
+  "version": "0.0.2",
+  "main": [
+    "angular-utf8-base64.js",
+    "angular-utf8-base64.min.js"
+  ],
+  "ignore": [
+    "package.json",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "angular": ">= 1.0.8"
+  },
+  "homepage": "https://github.com/stranger82/angular-utf8-base64",
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "1c251aa7d9be75de1f9c6f719b5e1bd3ccb34f37"
+  },
+  "_source": "https://github.com/stranger82/angular-utf8-base64.git",
+  "_target": "0.0.2",
+  "_originalSource": "angular-utf8-base64"
+}
