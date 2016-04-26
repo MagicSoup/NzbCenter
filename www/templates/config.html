@@ -1,5 +1,76 @@
-<ion-view view-title="config">
+<ion-view view-title="Configuration">
   <ion-content>
-   Config
+    <form ng-submit="submitConfig()">
+      <div class="list">
+        <div class="item item-toggle item-divider-for-toggle">
+          Clef d'API
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="config.apikey.activated">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
+        <div ng-show="config.apikey.activated">
+          <label class="item item-input">
+            <span class="input-label">Nzb.su :</span>
+            <input type="text" name="configApiKeyNzbsu" ng-model="config.apikey.nzbsu"/>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Nzb.is :</span>
+            <input type="text" name="configApiKeyNzbis" ng-model="config.apikey.nzbis"/>
+          </label>
+        </div>
+        <div class="item item-toggle item-divider-for-toggle">
+          Nzbget
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="config.nzbget.activated">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
+        <div ng-show="config.nzbget.activated">
+          <label class="item item-input">
+            <span class="input-label">Url :</span>
+            <input type="text" name="configNzbgetRooturl" ng-model="config.nzbget.url"/>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Utilisateur :</span>
+            <input type="text" name="configNzbgetUsername" ng-model="config.nzbget.username"/>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Mot de passe :</span>
+            <input type="text" name="configNzbgetPassword" ng-model="config.nzbget.password"/>
+          </label>
+        </div>
+        <div class="item item-toggle item-divider-for-toggle">
+          Sabnzbd
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="config.sabnzbd.activated">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
+        <div ng-show="config.sabnzbd.activated">
+          <label class="item item-input">
+            <span class="input-label">Url :</span>
+            <input type="text" name="configSabnzbdRooturl" ng-model="config.sabnzbd.url"/>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Utilisateur :</span>
+            <input type="text" name="configSabnzbdUsername" ng-model="config.sabnzbd.username"/>
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Mot de passe :</span>
+            <input type="text" name="configSabnzbdPassword" ng-model="config.sabnzbd.password"/>
+          </label>
+        </div>
+
+        <button class="button button-full button-positive" type="submit">Sauvegarder</button>
+
+      </div>
+    </form>
   </ion-content>
 </ion-view>

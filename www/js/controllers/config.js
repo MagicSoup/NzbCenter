@@ -1,12 +1,34 @@
-angular.module('mainCtrl')
+var mainCtrl = angular.module('mainCtrl');
 
-  .controller('configCtrl', function ($scope, $ionicModal, $timeout) {
+mainCtrl.controller('configCtrl', [
+    '$scope',
+    'loggerService',
+    function ($scope, loggerService) {
 
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-  }
+      $scope.config = {
+        apikey: {
+          activated:false,
+          nzbsu: 'nzbsu',
+          nzbis: 'nzbis'
+        },
+        nzbget:{
+          activated:false,
+          url:'url_nzbget',
+          username: 'user_nzbget',
+          password: 'password_nzbget'
+        },
+        sabnzbd:{
+          activated:false,
+          url:'url_sabnzbd',
+          username: 'user_sabnzbd',
+          password: 'password_sabnzbd'
+        }
+      };
+      //config..username
+
+      $scope.submitConfig = function () {
+        loggerService.turnOn();
+      };
+    }
+  ]
 );

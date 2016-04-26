@@ -1,1 +1,7 @@
 /* Empty. Add your own CSS if you like */
+.item-divider-for-toggle {
+  min-height: 30px;
+  background-color: #f5f5f5;
+  color: #222;
+  font-weight: 500;
+}
