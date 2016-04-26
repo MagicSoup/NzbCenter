@@ -11,6 +11,10 @@
   ],
   "proxies": [
     {
+      "path": "/sabnzbd",
+      "proxyUrl": "https://campi-nas.net/sabnzbd"
+    },
+    {
       "path": "/nzbget",
       "proxyUrl": "https://campi-nas.net/nzbget"
     },
@@ -25,6 +29,10 @@
     {
       "path": "/nzbrss.aspx",
       "proxyUrl": "https://www.nzbclub.com/nzbrss.aspx"
+    },
+    {
+      "path": "/api",
+      "proxyUrl": "https://api.nzb.su/api"
     }
   ]
 }
