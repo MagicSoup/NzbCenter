@@ -13,8 +13,18 @@
       </div>
     </form>
     <ion-list ng-show="isFullyLoaded">
-      <ion-item ng-repeat="data in datas" ng-click="downloadUrl(data.link)">{{data.title}}</ion-item>
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
     </ion-list>
-  </ion-content>
+    <script id="download-popover.html" type="text/ng-template">
+      <ion-popover-view>
+        <ion-content>
+          <div class="list">
+            <a class="item" ng-click="downloadUrlWithNzbget(link)">Envoyer à Nzbget</a>
+            <a class="item" ng-click="downloadUrlWithSabnzbd(link)">Envoyer à Sabnzbd</a>
+            <a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
 
 </ion-view>

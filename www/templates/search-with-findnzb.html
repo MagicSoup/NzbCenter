@@ -15,9 +15,6 @@
     <ion-list ng-show="isFullyLoaded">
       <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
     </ion-list>
-    <!--p>
-      <button ng-click="openPopover($event)">Open Popover</button>
-    </p-->
     <script id="download-popover.html" type="text/ng-template">
       <ion-popover-view>
         <ion-content>

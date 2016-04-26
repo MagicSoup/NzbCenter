@@ -27,8 +27,16 @@
       "proxyUrl": "http://findnzb.net/nzb"
     },
     {
+      "path": "/get",
+      "proxyUrl": "http://findnzb.net/get"
+    },
+    {
       "path": "/nzbrss.aspx",
       "proxyUrl": "https://www.nzbclub.com/nzbrss.aspx"
+    },
+    {
+      "path": "/nzb_get",
+      "proxyUrl": "https://www.nzbclub.com/nzb_get"
     },
     {
       "path": "/api",
