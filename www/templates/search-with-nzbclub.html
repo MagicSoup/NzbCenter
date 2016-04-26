@@ -13,7 +13,7 @@
       </div>
     </form>
     <ion-list ng-show="isFullyLoadedNzbclub">
-      <ion-item ng-repeat="data in datas" href="{{data.link}}">{{data.title}}</ion-item>
+      <ion-item ng-repeat="data in datas" ng-click="downloadUrlForNzbclub(data.link)">{{data.title}}</ion-item>
     </ion-list>
   </ion-content>
 

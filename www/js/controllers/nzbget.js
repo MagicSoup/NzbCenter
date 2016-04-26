@@ -30,7 +30,9 @@ mainCtrl.controller('nzbgetCtrl', [
         nzbgetService.sendNzbFile().then(function (resp) {
 
           loggerService.turnOn();
-          loggerService.log('Inside controler : ' + resp);
+          loggerService.log('Nzbget controler id : ' + resp.id);
+          loggerService.log('Nzbget controler result : ' + resp.result);
+          loggerService.log('Nzbget controler version : ' + resp.version);
         });
       };
 

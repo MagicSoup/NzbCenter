@@ -57,9 +57,13 @@ mainCtrl.controller('searchCtrl', [
           });
       };
 
-      $scope.extractRealDownloadUrlForFindNzb = function (url) {
+      $scope.downloadUrlForNzbclub = function (url) {
+        loggerService.log('Nzbclub url : ' + url);
+      };
+
+      $scope.downloadUrlForFindNzb = function (url) {
         var deferred = $q.defer();
-        loggerService.log('Real url : ' + url);
+        loggerService.log('FindNzb real url : ' + url);
         var proxyfiedUrl = url.replace(/http:\/\/findnzb.net\/nzb\//g, findnzbGetEndpoint.url);
         loggerService.log('Proxyfied url : ' + proxyfiedUrl);
         $http({
