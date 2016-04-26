@@ -30,6 +30,7 @@ mainCtrl.controller('nzbgetCtrl', [
         nzbgetService.sendNzbFile().then(function (resp) {
 
           loggerService.turnOn();
+          //todo manager the resp.result error cases <= 0
           loggerService.log('Nzbget controler id : ' + resp.id);
           loggerService.log('Nzbget controler result : ' + resp.result);
           loggerService.log('Nzbget controler version : ' + resp.version);
