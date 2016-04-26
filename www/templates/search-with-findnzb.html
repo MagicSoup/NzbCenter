@@ -1,19 +1,34 @@
 <ion-view view-title="searchWithFindnzb">
   <ion-content>
     <h1>Rechercher avec Findnzb</h1>
-    <form ng-submit="submitFindnzb()">
+    <form ng-submit="submitSearch()">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Filter :</span>
-          <input type="text" name="filterFindnzb" ng-model="filters.findnzb" />
+          <input type="text" name="filterFindnzb" ng-model="filters.query" />
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Rechercher</button>
         </label>
       </div>
     </form>
-    <ion-list ng-show="isFullyLoadedFindNzb">
-      <ion-item ng-repeat="data in datas" ng-click="downloadUrlForFindNzb(data.link)">{{data.title}}</ion-item>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
     </ion-list>
+    <!--p>
+      <button ng-click="openPopover($event)">Open Popover</button>
+    </p-->
+    <script id="download-popover.html" type="text/ng-template">
+      <ion-popover-view>
+        <ion-content>
+          <div class="list">
+            <a class="item" ng-click="downloadUrlWithNzbget(link)">Envoyer à Nzbget</a>
+            <a class="item" ng-click="downloadUrlWithSabnzbd(link)">Envoyer à Sabnzbd</a>
+            <a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
+
   </ion-content>
 </ion-view>

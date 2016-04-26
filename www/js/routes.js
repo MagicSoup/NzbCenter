@@ -24,7 +24,7 @@ angular.module('nzb-manager')
         views: {
           'menuContent': {
             templateUrl: 'templates/search-with-nzbclub.html',
-            controller: 'searchCtrl'
+            controller: 'searchWithNzbclubCtrl'
           }
         }
       })
@@ -34,7 +34,7 @@ angular.module('nzb-manager')
         views: {
           'menuContent': {
             templateUrl: 'templates/search-with-findnzb.html',
-            controller: 'searchCtrl'
+            controller: 'searchWithFindnzbCtrl'
           }
         }
       })

@@ -1,19 +1,19 @@
 <ion-view view-title="searchWithNzbclub">
   <ion-content>
     <h1>Rechercher avec Nzbclub</h1>
-    <form ng-submit="submitNzbclub()">
+    <form ng-submit="submitSearch()">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Filter :</span>
-          <input type="text" name="filterNzbclub" ng-model="filters.nzbclub" />
+          <input type="text" name="filterNzbclub" ng-model="filters.query" />
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Rechercher</button>
         </label>
       </div>
     </form>
-    <ion-list ng-show="isFullyLoadedNzbclub">
-      <ion-item ng-repeat="data in datas" ng-click="downloadUrlForNzbclub(data.link)">{{data.title}}</ion-item>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item ng-repeat="data in datas" ng-click="downloadUrl(data.link)">{{data.title}}</ion-item>
     </ion-list>
   </ion-content>
 
