@@ -1,13 +1,14 @@
-var mainCtrl = angular.module('mainCtrl');
+var mainModule = angular.module('mainModule');
 
-mainCtrl.controller('configCtrl', [
+mainModule.controller('configCtrl', [
+    '$rootScope',
     '$scope',
     '$ionicPlatform',
     '$ionicLoading',
     'Loki',
     'loggerService',
     'configService',
-    function ($scope, $ionicPlatform, $ionicLoading, Loki, loggerService, configService) {
+    function ($rootScope, $scope, $ionicPlatform, $ionicLoading, Loki, loggerService, configService) {
 
       $scope.config = {};
       $scope.isConfigSaved = false;
@@ -31,11 +32,11 @@ mainCtrl.controller('configCtrl', [
         } else {
           configService.addConfig($scope.config);
         }
-
+        $rootScope.$broadcast('config:updated', $scope.config);
         $scope.isConfigSaved = true;
       };
-
       //TODO add some function used to test the connection to the service
+
     }
   ]
 );

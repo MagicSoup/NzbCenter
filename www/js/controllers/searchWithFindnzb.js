@@ -1,6 +1,6 @@
-var mainCtrl = angular.module('mainCtrl');
+var mainModule = angular.module('mainModule');
 
-mainCtrl.controller('searchWithFindnzbCtrl', [
+mainModule.controller('searchWithFindnzbCtrl', [
     '$scope',
     '$http',
     '$q',
@@ -30,7 +30,7 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
               findnzbGetEndpoint,
               findnzbDownloadEndpoint) {
 
-      var config = {};
+      $scope.config = {};
       $scope.filters = {
         query: ''
       };
@@ -47,7 +47,7 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
 
       $scope.$on('$ionicView.beforeEnter', function () {
         configService.getActualConfig().then(function (actualConfig) {
-          config = actualConfig;
+          $scope.config = actualConfig;
         });
       });
 
@@ -118,8 +118,8 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
             $http.get(proxyfiedUrl)
               .success(function (resp) {
                 var urlContentAsBase64 = base64.encode(resp);
-                var basicAuth = base64.encode(config.nzbget.username + ':' + config.nzbget.password);
-                nzbgetService.sendNzbFile(config.nzbget.url, basicAuth, $scope.filters.query, 'nzbget', urlContentAsBase64).then(function (resp) {
+                var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
+                nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, urlContentAsBase64).then(function (resp) {
                   var result = resp.result;
                   if (result <= 0) {
                     loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');

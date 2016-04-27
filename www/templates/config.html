@@ -36,6 +36,10 @@
             <input type="text" name="configNzbgetRooturl" ng-model="config.nzbget.url"/>
           </label>
           <label class="item item-input">
+            <span class="input-label">Catégorie :</span>
+            <input type="text" name="configNzbgetCategory" ng-model="config.nzbget.category"/>
+          </label>
+          <label class="item item-input">
             <span class="input-label">Utilisateur :</span>
             <input type="text" name="configNzbgetUsername" ng-model="config.nzbget.username"/>
           </label>
@@ -59,6 +63,10 @@
             <input type="text" name="configSabnzbdRooturl" ng-model="config.sabnzbd.url"/>
           </label>
           <label class="item item-input">
+            <span class="input-label">Catégorie :</span>
+            <input type="text" name="configSabnzbdCategory" ng-model="config.sabnzbd.category"/>
+          </label>
+          <label class="item item-input">
             <span class="input-label">Utilisateur :</span>
             <input type="text" name="configSabnzbdUsername" ng-model="config.sabnzbd.username"/>
           </label>
@@ -67,7 +75,27 @@
             <input type="password" name="configSabnzbdPassword" ng-model="config.sabnzbd.password"/>
           </label>
         </div>
-
+        <div class="item item-divider">
+          Affichage
+        </div>
+        <div class="item item-toggle">
+          Nzbclub
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="config.searchengine.nzbclub.activated">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
+        <div class="item item-toggle">
+          Findnzb
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="config.searchengine.findnzb.activated">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
         <button class="button button-full" ng-class="{true : 'button-balanced', false: 'button-positive'}[isConfigSaved]" type="submit">Sauvegarder</button>
 
       </div>

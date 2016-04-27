@@ -4,9 +4,9 @@ angular.module('nzb-manager')
     $stateProvider
       .state('app', {
         url: '/nzb-manager',
-        abstract: true,
+        cache:false,
         templateUrl: 'templates/menu.html',
-        controller: 'configCtrl'
+        controller: 'mainCtrl'
       })
 
       .state('app.config', {

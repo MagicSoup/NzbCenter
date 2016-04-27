@@ -1,6 +1,6 @@
-var mainCtrl = angular.module('mainCtrl');
+var mainModule = angular.module('mainModule');
 
-mainCtrl.controller('searchWithNzbclubCtrl', [
+mainModule.controller('searchWithNzbclubCtrl', [
     '$scope',
     '$http',
     '$q',
