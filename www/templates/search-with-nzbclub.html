@@ -12,7 +12,14 @@
       </div>
     </form>
     <ion-list ng-show="isFullyLoaded">
-      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
+      <ion-item class="item-divider">
+        <div class="search-col-length">Taille</div>
+        <div>Nom du fichier</div>
+      </ion-item>
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">
+        <div class="search-col-length">{{data.length}}</div>
+        <div>{{data.title}}</div>
+      </ion-item>
     </ion-list>
     <script id="download-popover.html" type="text/ng-template">
       <ion-popover-view style="height: {{(55 * 2) + 'px'}};">

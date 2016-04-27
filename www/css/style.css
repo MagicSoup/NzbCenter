@@ -5,3 +5,8 @@
   color: #222;
   font-weight: 500;
 }
+
+.search-col-length {
+  width: 100px;
+  float: left;
+}

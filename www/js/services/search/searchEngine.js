@@ -12,14 +12,14 @@ services.factory('searchEngineService', [
       var data = {};
       if ((typeof item.enclosure != 'undefined')) {
         data = {
-          'title': item.title,
+          'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.enclosure._url,
-          'length': item.enclosure._length
+          'length': Math.floor(item.enclosure._length / 1024 / 1024) + 'Mo'
         };
       } else {
         data = {
-          'title': item.title,
+          'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.link,
           'length': 0
