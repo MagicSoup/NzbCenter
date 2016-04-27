@@ -28,10 +28,10 @@ mainModule.controller('configCtrl', [
           configService.addConfig($scope.config);
         }
         $rootScope.$broadcast('config:updated', $scope.config);
-        displayMessage('La configuration a été correctement sauvegardée.');
+        displayMessage('La configuration a été correctement sauvegardée.', false);
       };
 
-      function displayMessage(message){
+      function displayMessage(message,isError){
         $rootScope.$broadcast('message:display', false, message);
       }
       //TODO add some function used to test the connection to the service

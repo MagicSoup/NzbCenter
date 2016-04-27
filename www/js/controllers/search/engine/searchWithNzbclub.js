@@ -1,6 +1,7 @@
 var mainModule = angular.module('mainModule');
 
 mainModule.controller('searchWithNzbclubCtrl', [
+    '$rootScope',
     '$scope',
     '$http',
     '$q',
@@ -14,7 +15,8 @@ mainModule.controller('searchWithNzbclubCtrl', [
     'sabnzbdService',
     'nzbclubSearchEndpoint',
     'nzbclubDownloadEndpoint',
-    function ($scope,
+    function ($rootScope,
+              $scope,
               $http,
               $q,
               base64,
@@ -75,8 +77,10 @@ mainModule.controller('searchWithNzbclubCtrl', [
         sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url).then(function (resp) {
           if (resp.startsWith('ok')) {
             loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
+            displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd', false);
           } else {
             loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
+            displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb', true);
           }
         });
       };
@@ -94,17 +98,24 @@ mainModule.controller('searchWithNzbclubCtrl', [
               var result = resp.result;
               if (result <= 0) {
                 loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
+                displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
               } else {
                 loggerService.log('The nzb file was successfuly uploaded to Nzbget');
+                displayMessage('Le fichier NZB a été correctement envoyé à Nzbget', false);
               }
             });
           })
           .error(function (err) {
             loggerService.log(err, 'e');
+            displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
             deferred.reject(err);
           });
 
       };
+
+      function displayMessage(message, isError) {
+        $rootScope.$broadcast('message:display', isError, message);
+      }
 
       function splashScreenHide() {
         //$ionicLoading.hide();
