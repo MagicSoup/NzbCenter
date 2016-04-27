@@ -1,6 +1,6 @@
 var mainModule = angular.module('mainModule');
 
-mainModule.controller('searchWithNzbclubCtrl', [
+mainModule.controller('searchWithNzbsuCtrl', [
     '$scope',
     '$http',
     '$q',
@@ -9,11 +9,11 @@ mainModule.controller('searchWithNzbclubCtrl', [
     '$ionicPopover',
     'configService',
     'loggerService',
-    'searchEngineService',
+    'searchIndexerService',
     'nzbgetService',
     'sabnzbdService',
-    'nzbclubSearchEndpoint',
-    'nzbclubDownloadEndpoint',
+    'nzbsuApiEndpoint',
+    'nzbsuDownloadEndpoint',
     function ($scope,
               $http,
               $q,
@@ -22,11 +22,11 @@ mainModule.controller('searchWithNzbclubCtrl', [
               $ionicPopover,
               configService,
               loggerService,
-              searchEngineService,
+              searchIndexerService,
               nzbgetService,
               sabnzbdService,
-              nzbclubSearchEndpoint,
-              nzbclubDownloadEndpoint) {
+              nzbsuApiEndpoint,
+              nzbsuDownloadEndpoint) {
 
       $scope.config = {};
       $scope.filters = {
@@ -36,11 +36,6 @@ mainModule.controller('searchWithNzbclubCtrl', [
       $scope.isFullyLoaded = false;
 
       loggerService.turnOn();
-
-      function buildSearchUrl(endpoint, filter) {
-        var searchUrl = endpoint.url + '?q=' + filter + '&de=27&st=1&ns=0';
-        return searchUrl;
-      };
 
       $scope.$on('$ionicView.beforeEnter', function () {
         configService.getActualConfig().then(function (actualConfig) {
@@ -52,8 +47,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
         splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        var searchUrl = buildSearchUrl(nzbclubSearchEndpoint, $scope.filters.query);
-        searchEngineService.search(searchUrl)
+        searchIndexerService.search(nzbsuApiEndpoint.url, $scope.config.apikey.nzbsu, $scope.filters.query)
           .then(function (datas) {
             $scope.datas = datas;
             $scope.isFullyLoaded = true;
@@ -72,7 +66,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
       $scope.downloadUrlWithNzbget = function (url) {
         $scope.downloadPopover.hide();
         loggerService.log('downloadUrlWithNzbget => ' + url);
-        var proxyfiedUrl = url.replace(/http:\/\/www.nzbclub.com\/nzb_get/g, nzbclubDownloadEndpoint.url);
+        var proxyfiedUrl = url.replace(/https:\/\/api.nzb.su\/getnzb/g, nzbsuDownloadEndpoint.url);
         loggerService.log('downloadUrlWithNzbget proxyfiedUrl => ' + proxyfiedUrl);
         $http.get(proxyfiedUrl)
           .success(function (resp) {

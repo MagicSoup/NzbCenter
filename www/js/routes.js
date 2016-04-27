@@ -4,7 +4,7 @@ angular.module('nzb-manager')
     $stateProvider
       .state('app', {
         url: '/nzb-manager',
-        cache:false,
+        cache: false,
         templateUrl: 'templates/menu.html',
         controller: 'mainCtrl'
       })
@@ -39,6 +39,16 @@ angular.module('nzb-manager')
         }
       })
 
+      .state('app.searchWithNzbsu', {
+        url: '/searchWithNzbsu',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search-with-nzbsu.html',
+            controller: 'searchWithNzbsuCtrl'
+          }
+        }
+      })
+
       .state('app.nzbget', {
         url: '/nzbget',
         views: {
@@ -58,7 +68,6 @@ angular.module('nzb-manager')
           }
         }
       }
-
     );
 
     // if none of the above states are matched, use this as the fallback

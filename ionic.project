@@ -41,6 +41,10 @@
     {
       "path": "/api",
       "proxyUrl": "https://api.nzb.su/api"
+    },
+    {
+      "path": "/getnzb",
+      "proxyUrl": "https://api.nzb.su/getnzb"
     }
   ]
 }

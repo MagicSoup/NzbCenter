@@ -1,0 +1,29 @@
+<ion-view view-title="Rechercher avec Nzb.su">
+  <ion-content>
+    <form ng-submit="submitSearch()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Mot(s) clé(s) :</span>
+          <input type="text" name="filterNzbsu" ng-model="filters.query" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Rechercher</button>
+        </label>
+      </div>
+    </form>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
+    </ion-list>
+    <script id="download-popover.html" type="text/ng-template">
+      <ion-popover-view style="height: {{(55 * 3) + 'px'}};">
+        <ion-content>
+          <div class="list">
+            <a class="item" ng-click="downloadUrlWithNzbget(link)" ng-show="config.nzbget.activated">Envoyer à Nzbget</a>
+            <a class="item" ng-click="downloadUrlWithSabnzbd(link)" ng-show="config.sabnzbd.activated">Envoyer à Sabnzbd</a>
+            <a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
+
+</ion-view>

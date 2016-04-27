@@ -110,6 +110,13 @@ gulp.task('add-proxies', function() {
     recursive: false,
     silent: false
   });
+  replace({
+    regex: "https://api.nzb.su/getnzb",
+    replacement: "http://localhost:8100/getnzb",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
 })
 
 gulp.task('remove-proxies', function() {
@@ -165,6 +172,13 @@ gulp.task('remove-proxies', function() {
   replace({
     regex: "http://localhost:8100/api",
     replacement: "https://api.nzb.su/api",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+  replace({
+    regex: "http://localhost:8100/getnzb",
+    replacement: "https://api.nzb.su/getnzb",
     paths: replaceFiles,
     recursive: false,
     silent: false
