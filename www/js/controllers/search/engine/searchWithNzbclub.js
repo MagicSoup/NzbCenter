@@ -69,7 +69,16 @@ mainModule.controller('searchWithNzbclubCtrl', [
       };
 
       $scope.downloadUrlWithSabnzbd = function (url) {
+        $scope.downloadPopover.hide();
         loggerService.log('downloadUrlWithSabnzbd => ' + url);
+        var basicAuth = base64.encode($scope.config.sabnzbd.username + ':' + $scope.config.sabnzbd.password);
+        sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url).then(function (resp) {
+          if (resp.startsWith('ok')) {
+            loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
+          } else {
+            loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
+          }
+        });
       };
 
       $scope.downloadUrlWithNzbget = function (url) {

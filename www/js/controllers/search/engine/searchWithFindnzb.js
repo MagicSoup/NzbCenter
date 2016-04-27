@@ -86,6 +86,7 @@ mainModule.controller('searchWithFindnzbCtrl', [
               if (((typeof href != 'undefined') && href.match('save')) &&
                 (typeof saveHref == 'undefined')) {
                 saveHref = href;
+                loggerService.log('extracted url => ' + saveHref);
               }
             });
             deferred.resolve(saveHref);
@@ -106,13 +107,23 @@ mainModule.controller('searchWithFindnzbCtrl', [
       };
 
       $scope.downloadUrlWithSabnzbd = function (url) {
+        $scope.downloadPopover.hide();
         downloadUrl(url)
-          .then(function (resp) {
-            loggerService.log('downloadUrlWithSabnzbd => ' + resp);
+          .then(function (respUrl) {
+            var basicAuth = base64.encode($scope.config.sabnzbd.username + ':' + $scope.config.sabnzbd.password);
+            sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, respUrl).then(function (resp) {
+              if (resp.startsWith('ok')) {
+                loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
+              } else {
+                loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
+              }
+            });
+
           });
       };
 
       $scope.downloadUrlWithNzbget = function (url) {
+        $scope.downloadPopover.hide();
         downloadUrl(url)
           .then(function (resp) {
             loggerService.log('downloadUrlWithNzbget => ' + resp);
