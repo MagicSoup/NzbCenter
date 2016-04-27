@@ -41,7 +41,7 @@
           </label>
           <label class="item item-input">
             <span class="input-label">Mot de passe :</span>
-            <input type="text" name="configNzbgetPassword" ng-model="config.nzbget.password"/>
+            <input type="password" name="configNzbgetPassword" ng-model="config.nzbget.password"/>
           </label>
         </div>
         <div class="item item-toggle item-divider-for-toggle">
@@ -64,11 +64,11 @@
           </label>
           <label class="item item-input">
             <span class="input-label">Mot de passe :</span>
-            <input type="text" name="configSabnzbdPassword" ng-model="config.sabnzbd.password"/>
+            <input type="password" name="configSabnzbdPassword" ng-model="config.sabnzbd.password"/>
           </label>
         </div>
 
-        <button class="button button-full button-positive" type="submit">Sauvegarder</button>
+        <button class="button button-full" ng-class="{true : 'button-balanced', false: 'button-positive'}[isConfigSaved]" type="submit">Sauvegarder</button>
 
       </div>
     </form>

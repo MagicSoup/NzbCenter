@@ -2,33 +2,40 @@ var mainCtrl = angular.module('mainCtrl');
 
 mainCtrl.controller('configCtrl', [
     '$scope',
+    '$ionicPlatform',
+    '$ionicLoading',
+    'Loki',
     'loggerService',
-    function ($scope, loggerService) {
+    'configService',
+    function ($scope, $ionicPlatform, $ionicLoading, Loki, loggerService, configService) {
 
-      $scope.config = {
-        apikey: {
-          activated:false,
-          nzbsu: 'nzbsu',
-          nzbis: 'nzbis'
-        },
-        nzbget:{
-          activated:false,
-          url:'url_nzbget',
-          username: 'user_nzbget',
-          password: 'password_nzbget'
-        },
-        sabnzbd:{
-          activated:false,
-          url:'url_sabnzbd',
-          username: 'user_sabnzbd',
-          password: 'password_sabnzbd'
-        }
-      };
-      //config..username
+      $scope.config = {};
+      $scope.isConfigSaved = false;
+
+      $ionicPlatform.ready(function () {
+        $ionicLoading.show();
+        configService.initDB();
+        configService.getActualConfig().then(function (actualConfig) {
+          $scope.config = actualConfig;
+          $ionicLoading.hide();
+        });
+      });
+
+      $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.isConfigSaved = false;
+      });
 
       $scope.submitConfig = function () {
-        loggerService.turnOn();
+        if (typeof $scope.config.$loki != 'undefined') {
+          configService.updateConfig($scope.config);
+        } else {
+          configService.addConfig($scope.config);
+        }
+
+        $scope.isConfigSaved = true;
       };
+
+      //TODO add some function used to test the connection to the service
     }
   ]
 );
