@@ -83,6 +83,20 @@ gulp.task('add-proxies', function() {
     silent: false
   });
   replace({
+    regex: "https://api.nzb.su/api",
+    replacement: "http://localhost:8100/api",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+  replace({
+    regex: "https://api.nzb.su/getnzb",
+    replacement: "http://localhost:8100/getnzb",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+  replace({
     regex: "http://findnzb.net/rss",
     replacement: "http://localhost:8100/rss",
     paths: replaceFiles,
@@ -99,20 +113,6 @@ gulp.task('add-proxies', function() {
   replace({
     regex: "http://findnzb.net/get",
     replacement: "http://localhost:8100/get",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "https://api.nzb.su/api",
-    replacement: "http://localhost:8100/api",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "https://api.nzb.su/getnzb",
-    replacement: "http://localhost:8100/getnzb",
     paths: replaceFiles,
     recursive: false,
     silent: false
@@ -149,6 +149,20 @@ gulp.task('remove-proxies', function() {
     silent: false
   });
   replace({
+    regex: "http://localhost:8100/api",
+    replacement: "https://api.nzb.su/api",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+  replace({
+    regex: "http://localhost:8100/getnzb",
+    replacement: "https://api.nzb.su/getnzb",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+  replace({
     regex: "http://localhost:8100/rss",
     replacement: "http://findnzb.net/rss",
     paths: replaceFiles,
@@ -165,20 +179,6 @@ gulp.task('remove-proxies', function() {
   replace({
     regex: "http://localhost:8100/get",
     replacement: "http://findnzb.net/get",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "http://localhost:8100/api",
-    replacement: "https://api.nzb.su/api",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "http://localhost:8100/getnzb",
-    replacement: "https://api.nzb.su/getnzb",
     paths: replaceFiles,
     recursive: false,
     silent: false
