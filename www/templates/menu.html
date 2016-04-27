@@ -9,6 +9,11 @@
         <button class="button icon button-icon ion-gear-a" menu-close ui-sref="app.config"></button>
       </ion-nav-buttons>
     </ion-nav-bar>
+    <ion-nav-bar-subheader class="bar bar-subheader-for-messages" ng-show="hasMessageToDisplay">
+      <div class="row row-no-padding">
+        <div class="col"><div class="display-message" ng-class="{true : 'display-message-assersive', false: 'display-message-balanced'}[isErrorMessage]">{{messageToDisplay}}</div></div>
+      </div>
+    </ion-nav-bar-subheader>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
   <ion-side-menu side="left">

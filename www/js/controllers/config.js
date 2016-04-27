@@ -11,7 +11,6 @@ mainModule.controller('configCtrl', [
     function ($rootScope, $scope, $ionicPlatform, $ionicLoading, Loki, loggerService, configService) {
 
       $scope.config = {};
-      $scope.isConfigSaved = false;
 
       $ionicPlatform.ready(function () {
         //$ionicLoading.show();
@@ -22,10 +21,6 @@ mainModule.controller('configCtrl', [
         });
       });
 
-      $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.isConfigSaved = false;
-      });
-
       $scope.submitConfig = function () {
         if (typeof $scope.config.$loki != 'undefined') {
           configService.updateConfig($scope.config);
@@ -33,8 +28,12 @@ mainModule.controller('configCtrl', [
           configService.addConfig($scope.config);
         }
         $rootScope.$broadcast('config:updated', $scope.config);
-        $scope.isConfigSaved = true;
+        displayMessage('La configuration a été correctement sauvegardée.');
       };
+
+      function displayMessage(message){
+        $rootScope.$broadcast('message:display', false, message);
+      }
       //TODO add some function used to test the connection to the service
 
     }
