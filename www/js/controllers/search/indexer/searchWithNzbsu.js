@@ -38,6 +38,9 @@ mainModule.controller('searchWithNzbsuCtrl', [
       loggerService.turnOn();
 
       $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.filters.query = '';
+        $scope.datas = [];
+        $scope.isFullyLoaded = false;
         configService.getActualConfig().then(function (actualConfig) {
           $scope.config = actualConfig;
         });
