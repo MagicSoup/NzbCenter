@@ -14,13 +14,16 @@
     <ion-list ng-show="isFullyLoaded">
       <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">{{data.title}}</ion-item>
     </ion-list>
+    <ion-view>
+      <div ng-include src="'templates/tab1.html'"></div>
+    </ion-view>
     <script id="download-popover.html" type="text/ng-template">
-      <ion-popover-view style="height: {{(55 * 3) + 'px'}};">
+      <ion-popover-view style="height: {{(55 * 2) + 'px'}};">
         <ion-content>
           <div class="list">
             <a class="item" ng-click="downloadUrlWithNzbget(link)" ng-show="config.nzbget.activated">Envoyer à Nzbget</a>
             <a class="item" ng-click="downloadUrlWithSabnzbd(link)" ng-show="config.sabnzbd.activated">Envoyer à Sabnzbd</a>
-            <a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a>
+            <!--a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a-->
           </div>
         </ion-content>
       </ion-popover-view>
