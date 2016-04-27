@@ -14,11 +14,11 @@ mainModule.controller('configCtrl', [
       $scope.isConfigSaved = false;
 
       $ionicPlatform.ready(function () {
-        $ionicLoading.show();
+        //$ionicLoading.show();
         configService.initDB();
         configService.getActualConfig().then(function (actualConfig) {
           $scope.config = actualConfig;
-          $ionicLoading.hide();
+          //$ionicLoading.hide();
         });
       });
 

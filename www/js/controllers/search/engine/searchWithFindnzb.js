@@ -150,11 +150,11 @@ mainModule.controller('searchWithFindnzbCtrl', [
       };
 
       function splashScreenHide() {
-        $ionicLoading.hide();
+        //$ionicLoading.hide();
       };
 
       function splashScreenShow() {
-        $ionicLoading.show();
+        //$ionicLoading.show();
       };
 
       $ionicPopover.fromTemplateUrl('download-popover.html', {
