@@ -13,6 +13,39 @@ services.factory('searchIndexerService', [
       return searchUrl;
     };
 
+    extractItemContent = function (item) {
+      var data = {};
+      if ((typeof item.enclosure != 'undefined')) {
+        data = {
+          'title': item.title,
+          'publicationDate': item.pubDate,
+          'link': item.enclosure._url,
+          'length': item.enclosure._length
+        };
+      } else {
+        data = {
+          'title': item.title,
+          'publicationDate': item.pubDate,
+          'link': item.link,
+          'length': 0
+        };
+      }
+
+      return data;
+    };
+
+    extractItemsFromChannel = function (channelJson) {
+      var datas = [];
+      if ((typeof channelJson.item.length == 'undefined')) {
+        datas.push(extractItemContent(channelJson.item));
+      } else {
+        angular.forEach(channelJson.item, function (item) {
+          datas.push(extractItemContent(item));
+        });
+      }
+      return datas;
+    };
+
     currentService.search = function (baseUrl, apiKey, filter) {
       var deferred = $q.defer();
       var searchUrl = buildSearchUrl(baseUrl, apiKey, filter);
@@ -24,28 +57,10 @@ services.factory('searchIndexerService', [
         url: searchUrl
       })
         .success(function (resp) {
-          var datas = [];
           var x2js = new X2JS();
           var channelJson = x2js.xml_str2json(resp).rss.channel;
-          angular.forEach(channelJson.item, function (item) {
-            if ((typeof item.enclosure != 'undefined')) {
-              var data = {
-                'title': item.title,
-                'publicationDate': item.pubDate,
-                'link': item.enclosure._url,
-                'length': item.enclosure._length
-              };
-              datas.push(data);
-            } else {
-              var data = {
-                'title': item.title,
-                'publicationDate': item.pubDate,
-                'link': item.link,
-                'length': 0
-              };
-              datas.push(data);
-            }
-          });
+          var datas = extractItemsFromChannel(channelJson);
+
           deferred.resolve(datas);
         })
         .error(function (err) {
