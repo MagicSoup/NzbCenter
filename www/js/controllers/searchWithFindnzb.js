@@ -7,6 +7,7 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
     'base64',
     '$ionicLoading',
     '$ionicPopover',
+    'configService',
     'loggerService',
     'searchEngineService',
     'nzbgetService',
@@ -20,6 +21,7 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
               base64,
               $ionicLoading,
               $ionicPopover,
+              configService,
               loggerService,
               searchEngineService,
               nzbgetService,
@@ -28,6 +30,7 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
               findnzbGetEndpoint,
               findnzbDownloadEndpoint) {
 
+      var config = {};
       $scope.filters = {
         query: ''
       };
@@ -41,6 +44,12 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
         var searchUrl = endpoint.url + '?q=' + filter;
         return searchUrl;
       };
+
+      $scope.$on('$ionicView.beforeEnter', function () {
+        configService.getActualConfig().then(function (actualConfig) {
+          config = actualConfig;
+        });
+      });
 
       $scope.submitSearch = function () {
         $scope.link = null;
@@ -109,8 +118,8 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
             $http.get(proxyfiedUrl)
               .success(function (resp) {
                 var urlContentAsBase64 = base64.encode(resp);
-                var basicAuth = base64.encode('admin:R6?nUi9n');
-                nzbgetService.sendNzbFile(basicAuth, $scope.filters.query, 'nzbget', urlContentAsBase64).then(function (resp) {
+                var basicAuth = base64.encode(config.nzbget.username + ':' + config.nzbget.password);
+                nzbgetService.sendNzbFile(config.nzbget.url, basicAuth, $scope.filters.query, 'nzbget', urlContentAsBase64).then(function (resp) {
                   var result = resp.result;
                   if (result <= 0) {
                     loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
@@ -134,38 +143,23 @@ mainCtrl.controller('searchWithFindnzbCtrl', [
         $ionicLoading.show();
       };
 
-      // init popover
       $ionicPopover.fromTemplateUrl('download-popover.html', {
         scope: $scope
       }).then(function (popover) {
         $scope.downloadPopover = popover;
-        loggerService.log('init downloadPopover called');
       });
-
 
       $scope.openDownloadPopover = function ($event, link) {
         $scope.downloadPopover.show($event);
         $scope.link = link;
-        loggerService.log('link : ' + link);
-        loggerService.log('openDownloadPopover called');
-      };
-      $scope.closeDownloadPopover = function () {
-        $scope.downloadPopover.hide();
-        loggerService.log('closeDownloadPopover called');
       };
 
-      //Cleanup the popover when we're done with it!
+      $scope.closeDownloadPopover = function () {
+        $scope.downloadPopover.hide();
+      };
+
       $scope.$on('$destroy', function () {
         $scope.downloadPopover.remove();
-        loggerService.log('$scope.$on => $destroy called');
-      });
-      // Execute action on hide popover
-      $scope.$on('popover.hidden', function () {
-        loggerService.log('$scope.$on => popover.hidden called');
-      });
-      // Execute action on remove popover
-      $scope.$on('popover.removed', function () {
-        loggerService.log('$scope.$on => popover.removed called');
       });
     }]
 );
