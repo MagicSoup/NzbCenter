@@ -45,6 +45,10 @@
     {
       "path": "/getnzb",
       "proxyUrl": "https://api.nzb.su/getnzb"
+    },
+    {
+      "path": "/new_rss",
+      "proxyUrl": "http://www.binnews.in/new_rss"
     }
   ]
 }

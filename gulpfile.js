@@ -117,7 +117,14 @@ gulp.task('add-proxies', function() {
     recursive: false,
     silent: false
   });
-})
+  replace({
+    regex: "http://www.binnews.in/new_rss",
+    replacement: "http://localhost:8100/new_rss",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+});
 
 gulp.task('remove-proxies', function() {
   replace({
@@ -183,4 +190,11 @@ gulp.task('remove-proxies', function() {
     recursive: false,
     silent: false
   });
-})
+  replace({
+    regex: "http://localhost:8100/new_rss",
+    replacement: "http://www.binnews.in/new_rss",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false
+  });
+});
