@@ -4,7 +4,11 @@ services.factory('searchBinnewsService', [
   '$http',
   '$q',
   'loggerService',
-  function ($http, $q, loggerService) {
+  'rssService',
+  function ($http,
+            $q,
+            loggerService,
+            rssService) {
 
     var categories = [
       {categoryId: 20, categoryName: "Jeux"},
