@@ -21,17 +21,5 @@
         <div>{{data.title}}</div>
       </ion-item>
     </ion-list>
-    <script id="download-popover.html" type="text/ng-template">
-      <ion-popover-view style="height: {{(55 * 2) + 'px'}};">
-        <ion-content>
-          <div class="list">
-            <a class="item" ng-click="downloadUrlWithNzbget(link)" ng-show="config.nzbget.activated">Envoyer à Nzbget</a>
-            <a class="item" ng-click="downloadUrlWithSabnzbd(link)" ng-show="config.sabnzbd.activated">Envoyer à Sabnzbd</a>
-            <!--a class="item" ng-click="downloadUrlOnDisk(link)">Télécharger</a-->
-          </div>
-        </ion-content>
-      </ion-popover-view>
-    </script>
-
   </ion-content>
 </ion-view>

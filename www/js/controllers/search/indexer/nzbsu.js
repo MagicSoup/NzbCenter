@@ -3,12 +3,10 @@ var mainModule = angular.module('mainModule');
 mainModule.controller('searchWithNzbsuCtrl', [
     '$rootScope',
     '$scope',
+    '$controller',
     '$http',
     '$q',
     'base64',
-    '$ionicLoading',
-    '$ionicPopover',
-    'configService',
     'loggerService',
     'searchIndexerService',
     'nzbgetService',
@@ -17,51 +15,31 @@ mainModule.controller('searchWithNzbsuCtrl', [
     'nzbsuDownloadEndpoint',
     function ($rootScope,
               $scope,
+              $controller,
               $http,
               $q,
               base64,
-              $ionicLoading,
-              $ionicPopover,
-              configService,
               loggerService,
               searchIndexerService,
               nzbgetService,
               sabnzbdService,
               nzbsuApiEndpoint,
               nzbsuDownloadEndpoint) {
-
-      $scope.config = {};
-      $scope.filters = {
-        query: ''
-      };
-      $scope.datas = [];
-      $scope.isFullyLoaded = false;
+      'use strict';
+      $controller('abstractSearchCtrl', {$scope: $scope});
 
       loggerService.turnOn();
 
-      $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.filters.query = '';
-        $scope.datas = [];
-        $scope.isFullyLoaded = false;
-        configService.getActualConfig().then(function (actualConfig) {
-          $scope.config = actualConfig;
-        });
-      });
-
       $scope.submitSearch = function () {
-        splashScreenShow();
+        $scope.splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;
         searchIndexerService.search(nzbsuApiEndpoint.url, $scope.config.apikey.nzbsu, $scope.filters.query)
           .then(function (datas) {
             $scope.datas = datas;
             $scope.isFullyLoaded = true;
-            splashScreenHide();
+            $scope.splashScreenHide();
           });
-      };
-
-      $scope.downloadUrlOnDisk = function (url) {
-        loggerService.log('downloadUrlOnDisk => ' + url);
       };
 
       $scope.downloadUrlWithSabnzbd = function (url) {
@@ -71,10 +49,10 @@ mainModule.controller('searchWithNzbsuCtrl', [
         sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url).then(function (resp) {
           if (resp.startsWith('ok')) {
             loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
-            displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd', false);
+            $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd', false);
           } else {
             loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
-            displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb', true);
+            $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb', true);
           }
         });
       };
@@ -92,50 +70,18 @@ mainModule.controller('searchWithNzbsuCtrl', [
               var result = resp.result;
               if (result <= 0) {
                 loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
-                displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
+                $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
               } else {
                 loggerService.log('The nzb file was successfuly uploaded to Nzbget');
-                displayMessage('Le fichier NZB a été correctement envoyé à Nzbget', false);
+                $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget', false);
               }
             });
           })
           .error(function (err) {
             loggerService.log(err, 'e');
-            displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
-            deferred.reject(err);
+            $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
           });
 
       };
-
-      function displayMessage(message, isError) {
-        $rootScope.$broadcast('message:display', isError, message);
-      }
-
-      function splashScreenHide() {
-        //$ionicLoading.hide();
-      };
-
-      function splashScreenShow() {
-        //$ionicLoading.show();
-      };
-
-      $ionicPopover.fromTemplateUrl('download-popover.html', {
-        scope: $scope
-      }).then(function (popover) {
-        $scope.downloadPopover = popover;
-      });
-
-      $scope.openDownloadPopover = function ($event, link) {
-        $scope.downloadPopover.show($event);
-        $scope.link = link;
-      };
-
-      $scope.closeDownloadPopover = function () {
-        $scope.downloadPopover.hide();
-      };
-
-      $scope.$on('$destroy', function () {
-        $scope.downloadPopover.remove();
-      });
     }]
 );
