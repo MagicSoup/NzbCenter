@@ -1,6 +1,6 @@
-<ion-view view-title="Rechercher avec Nzbclub">
+<ion-view view-title="Rechercher avec Nzbclub" data-ng-init="init()">
   <ion-content class="padding-for-display-message">
-    <form ng-submit="submitSearch()">
+    <form ng-submit="submitSearch(filters.query)">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Mot(s) clé(s) :</span>

@@ -1,6 +1,6 @@
-<ion-view view-title="Rechercher avec Findnzb">
+<ion-view view-title="Rechercher avec Findnzb" data-ng-init="init()">
   <ion-content class="padding-for-display-message">
-    <form ng-submit="submitSearch()">
+    <form ng-submit="submitSearch(filters.query)">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Mot(s) clé(s) :</span>
@@ -13,11 +13,9 @@
     </form>
     <ion-list ng-show="isFullyLoaded">
       <ion-item class="item-divider">
-        <div class="search-col-length">Taille</div>
-        <div>Nom du fichier</div>
+        <div>Résultat</div>
       </ion-item>
       <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">
-        <div class="search-col-length">{{data.length}}</div>
         <div>{{data.title}}</div>
       </ion-item>
     </ion-list>

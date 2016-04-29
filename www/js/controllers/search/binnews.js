@@ -39,8 +39,21 @@ mainModule.controller('searchWithBinnewsCtrl', [
       };
 
       $scope.searchWithNzbsu = function (data) {
+        $scope.searchPopover.hide();
         $scope.searchQuery = extractFileName(data);
         $state.go('app.searchWithNzbsu', {query: $scope.searchQuery});
+      };
+
+      $scope.searchWithFindNzb = function (data) {
+        $scope.searchPopover.hide();
+        $scope.searchQuery = extractFileName(data);
+        $state.go('app.searchWithFindnzb', {query: $scope.searchQuery});
+      };
+
+      $scope.searchWithNzbclub = function (data) {
+        $scope.searchPopover.hide();
+        $scope.searchQuery = extractFileName(data);
+        $state.go('app.searchWithNzbclub', {query: $scope.searchQuery});
       };
 
       function extractFileName(data) {
@@ -51,10 +64,12 @@ mainModule.controller('searchWithBinnewsCtrl', [
       };
 
       var searchTemplate =
-        '<ion-popover-view style="height: 55px;">' +
+        '<ion-popover-view style="height: 165px;">' +
         '<ion-content>' +
         '<div class="list">' +
-        '<a class="item" ng-click="searchWithNzbsu(selectedData)" ng-show="config.nzbget.activated">Chercher avec Nzb.su</a>' +
+        '<a class="item" ng-click="searchWithNzbsu(selectedData)" ng-show="config.apikey.activated && config.apikey.nzbsu != \'\'">Chercher avec Nzb.su</a>' +
+        '<a class="item" ng-click="searchWithFindNzb(selectedData)" ng-show="config.searchengine.findnzb.activated">Chercher avec Findnzb</a>' +
+        '<a class="item" ng-click="searchWithNzbclub(selectedData)" ng-show="config.searchengine.nzbclub.activated">Chercher avec Nzbclub</a>' +
         '</div>' +
         '</ion-content>' +
         '</ion-popover-view>';

@@ -4,6 +4,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
     '$rootScope',
     '$scope',
     '$controller',
+    '$stateParams',
     '$http',
     '$q',
     'base64',
@@ -16,6 +17,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
     function ($rootScope,
               $scope,
               $controller,
+              $stateParams,
               $http,
               $q,
               base64,
@@ -30,16 +32,25 @@ mainModule.controller('searchWithNzbclubCtrl', [
 
       loggerService.turnOn();
 
+      $scope.init = function () {
+        if (!$stateParams.query.startsWith('empty')) {
+          $scope.$watch($scope.config, function () {
+            $scope.filters.query = $stateParams.query;
+            $scope.submitSearch($stateParams.query);
+          });
+        }
+      };
+
       function buildSearchUrl(endpoint, filter) {
         var searchUrl = endpoint.url + '?q=' + filter + '&de=27&st=1&ns=0';
         return searchUrl;
       };
 
-      $scope.submitSearch = function () {
+      $scope.submitSearch = function (query) {
         $scope.splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        var searchUrl = buildSearchUrl(nzbclubSearchEndpoint, $scope.filters.query);
+        var searchUrl = buildSearchUrl(nzbclubSearchEndpoint, query);
         searchEngineService.search(searchUrl)
           .then(function (datas) {
             $scope.datas = datas;

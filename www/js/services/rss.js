@@ -12,7 +12,7 @@ services.factory('rssService', [
           'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.enclosure._url,
-          'description':item.description,
+          'description': item.description,
           'length': Math.floor(item.enclosure._length / 1024 / 1024) + ' Mo'
         };
       } else {
@@ -20,7 +20,7 @@ services.factory('rssService', [
           'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.link,
-          'description':item.description
+          'description': item.description
         };
       }
 
@@ -31,12 +31,14 @@ services.factory('rssService', [
       var datas = [];
       var x2js = new X2JS();
       var channelJson = x2js.xml_str2json(content).rss.channel;
-      if ((typeof channelJson.item.length == 'undefined')) {
-        datas.push(currentService.extractItemContent(channelJson.item));
-      } else {
-        angular.forEach(channelJson.item, function (item) {
-          datas.push(currentService.extractItemContent(item));
-        });
+      if ((typeof channelJson.item != 'undefined')) {
+        if ((typeof channelJson.item.length == 'undefined')) {
+          datas.push(currentService.extractItemContent(channelJson.item));
+        } else {
+          angular.forEach(channelJson.item, function (item) {
+            datas.push(currentService.extractItemContent(item));
+          });
+        }
       }
       return datas;
     };

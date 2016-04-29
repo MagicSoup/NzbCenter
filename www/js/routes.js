@@ -21,6 +21,13 @@ angular.module('nzb-manager')
 
       .state('app.searchWithNzbclub', {
         url: '/searchWithNzbclub',
+        params: {
+          query: {
+            value: 'empty',
+            squash: false
+          },
+          hiddenParam: 'YES'
+        },
         views: {
           'menuContent': {
             templateUrl: 'templates/search/engine/nzbclub.html',
@@ -31,6 +38,13 @@ angular.module('nzb-manager')
 
       .state('app.searchWithFindnzb', {
         url: '/searchWithFindnzb',
+        params: {
+          query: {
+            value: 'empty',
+            squash: false
+          },
+          hiddenParam: 'YES'
+        },
         views: {
           'menuContent': {
             templateUrl: 'templates/search/engine/findnzb.html',

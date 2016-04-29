@@ -4,6 +4,7 @@ mainModule.controller('searchWithFindnzbCtrl', [
     '$rootScope',
     '$scope',
     '$controller',
+    '$stateParams',
     '$http',
     '$q',
     'base64',
@@ -17,6 +18,7 @@ mainModule.controller('searchWithFindnzbCtrl', [
     function ($rootScope,
               $scope,
               $controller,
+              $stateParams,
               $http,
               $q,
               base64,
@@ -32,17 +34,26 @@ mainModule.controller('searchWithFindnzbCtrl', [
 
       loggerService.turnOn();
 
+      $scope.init = function () {
+        if (!$stateParams.query.startsWith('empty')) {
+          $scope.$watch($scope.config, function () {
+            $scope.filters.query = $stateParams.query;
+            $scope.submitSearch($stateParams.query);
+          });
+        }
+      };
+
       function buildSearchUrl(endpoint, filter) {
         var searchUrl = endpoint.url + '?q=' + filter;
         return searchUrl;
       };
 
-      $scope.submitSearch = function () {
+      $scope.submitSearch = function (query) {
         $scope.link = null;
         $scope.splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        var searchUrl = buildSearchUrl(findnzbSearchEndpoint, $scope.filters.query);
+        var searchUrl = buildSearchUrl(findnzbSearchEndpoint, query);
         searchEngineService.search(searchUrl)
           .then(function (datas) {
             $scope.datas = datas;
