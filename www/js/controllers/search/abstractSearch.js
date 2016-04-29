@@ -36,7 +36,7 @@ mainModule.controller('abstractSearchCtrl', [
         });
       });
 
-      var template =
+      var downloadTemplate =
         '<ion-popover-view style="height: 110px;">' +
         '<ion-content>' +
         '<div class="list">' +
@@ -46,7 +46,7 @@ mainModule.controller('abstractSearchCtrl', [
         '</ion-content>' +
         '</ion-popover-view>';
 
-      $scope.downloadPopover = $ionicPopover.fromTemplate(template, {
+      $scope.downloadPopover = $ionicPopover.fromTemplate(downloadTemplate, {
         scope: $scope
       });
 

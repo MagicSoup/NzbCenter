@@ -20,12 +20,11 @@
     </div>
     <ion-list ng-show="isFullyLoaded">
       <ion-item class="item-divider">
-        <div class="search-col-length">Taille</div>
-        <div>Nom du fichier</div>
+        <div>Résultat</div>
       </ion-item>
-      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">
-        <div class="search-col-length">{{data.length}}</div>
+      <ion-item ng-repeat="data in datas" ng-click="openSearchPopover($event,data)">
         <div>{{data.title}}</div>
+        <div ng-bind-html="data.description"></div>
       </ion-item>
     </ion-list>
   </ion-content>

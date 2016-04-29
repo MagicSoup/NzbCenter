@@ -12,6 +12,7 @@ services.factory('rssService', [
           'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.enclosure._url,
+          'description':item.description,
           'length': Math.floor(item.enclosure._length / 1024 / 1024) + ' Mo'
         };
       } else {
@@ -19,7 +20,7 @@ services.factory('rssService', [
           'title': item.title.trim(),
           'publicationDate': item.pubDate,
           'link': item.link,
-          'length': 0
+          'description':item.description
         };
       }
 
