@@ -41,6 +41,13 @@ angular.module('nzb-manager')
 
       .state('app.searchWithNzbsu', {
         url: '/searchWithNzbsu',
+        params: {
+          query: {
+            value: 'empty',
+            squash: false
+          },
+          hiddenParam: 'YES'
+        },
         views: {
           'menuContent': {
             templateUrl: 'templates/search/indexer/nzbsu.html',

@@ -4,6 +4,7 @@ mainModule.controller('searchWithNzbsuCtrl', [
     '$rootScope',
     '$scope',
     '$controller',
+    '$stateParams',
     '$http',
     '$q',
     'base64',
@@ -16,6 +17,7 @@ mainModule.controller('searchWithNzbsuCtrl', [
     function ($rootScope,
               $scope,
               $controller,
+              $stateParams,
               $http,
               $q,
               base64,
@@ -30,11 +32,20 @@ mainModule.controller('searchWithNzbsuCtrl', [
 
       loggerService.turnOn();
 
-      $scope.submitSearch = function () {
+      $scope.init = function () {
+        if (!$stateParams.query.startsWith('empty')) {
+          $scope.$watch($scope.config, function () {
+            $scope.filters.query = $stateParams.query;
+            $scope.submitSearch($stateParams.query);
+          });
+        }
+      };
+
+      $scope.submitSearch = function (query) {
         $scope.splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;
-        searchIndexerService.search(nzbsuApiEndpoint.url, $scope.config.apikey.nzbsu, $scope.filters.query)
+        searchIndexerService.search(nzbsuApiEndpoint.url, $scope.config.apikey.nzbsu, query)
           .then(function (datas) {
             $scope.datas = datas;
             $scope.isFullyLoaded = true;

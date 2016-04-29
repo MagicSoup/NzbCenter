@@ -1,15 +1,32 @@
 <ion-view view-title="Rechercher avec Binnews">
-<ion-content>
-    <button class="button button-positive"
-            modal-select ng-model="selectedCategory"
-            options="categories"
-            *modal-title="Sélectionner une catégorie"
-            option-property="categoryName"
-            option-getter="categoryId">
-      Select it
-      <div class="option">
-        ()
-      </div>
-    </button>
-</ion-content>
+  <ion-content>
+    <div class="list">
+      <label class="item">
+        <button class="button button-block button-positive"
+                modal-select
+                modal-title="{{defaultMessage}}"
+                reset-button="Réinitialiser"
+                cancel-button="Annuler"
+                ng-model="selectedCategory"
+                options="categories"
+                on-select="onCategorySelect(newValue, oldValue)"
+                on-reset="onCategoryReset()">
+          {{displayedCategoryMessage}}
+          <div class="option">
+            <h2>{{option.categoryName}}</h2>
+          </div>
+        </button>
+      </label>
+    </div>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item class="item-divider">
+        <div class="search-col-length">Taille</div>
+        <div>Nom du fichier</div>
+      </ion-item>
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">
+        <div class="search-col-length">{{data.length}}</div>
+        <div>{{data.title}}</div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-view>
