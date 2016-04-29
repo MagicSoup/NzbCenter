@@ -47,6 +47,11 @@ mainModule.controller('searchWithNzbclubCtrl', [
       };
 
       $scope.submitSearch = function (query) {
+        if (!query) {
+          $scope.displayWarningMessage('Veuillez spécifier un critère de recherche');
+          return;
+        }
+
         $scope.splashScreenShow();
         $scope.datas = [];
         $scope.isFullyLoaded = false;

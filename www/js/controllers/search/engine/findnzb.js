@@ -49,6 +49,11 @@ mainModule.controller('searchWithFindnzbCtrl', [
       };
 
       $scope.submitSearch = function (query) {
+        if (!query) {
+          $scope.displayWarningMessage('Veuillez spécifier un critère de recherche');
+          return;
+        }
+
         $scope.link = null;
         $scope.splashScreenShow();
         $scope.datas = [];
