@@ -11,7 +11,7 @@
     </ion-nav-bar>
     <ion-nav-bar-subheader class="bar bar-subheader-for-messages" ng-show="hasMessageToDisplay">
       <div class="row row-no-padding">
-        <div class="col"><div class="display-message" ng-class="{true : 'display-message-assersive', false: 'display-message-balanced'}[isErrorMessage]">{{messageToDisplay}}</div></div>
+        <div class="col"><div class="display-message display-message-{{type}}">{{messageToDisplay}}</div></div>
       </div>
     </ion-nav-bar-subheader>
     <ion-nav-view name="menuContent"></ion-nav-view>

@@ -55,10 +55,10 @@ mainModule.controller('searchWithNzbclubCtrl', [
         sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url).then(function (resp) {
           if (resp.startsWith('ok')) {
             loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
-            $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd', false);
+            $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd');
           } else {
             loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
-            $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb', true);
+            $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb');
           }
         });
       };
@@ -76,16 +76,16 @@ mainModule.controller('searchWithNzbclubCtrl', [
               var result = resp.result;
               if (result <= 0) {
                 loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
-                $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
+                $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
               } else {
                 loggerService.log('The nzb file was successfuly uploaded to Nzbget');
-                $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget', false);
+                $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
               }
             });
           })
           .error(function (err) {
             loggerService.log(err, 'e');
-            $scope.displayMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget', true);
+            $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
             deferred.reject(err);
           });
       };

@@ -49,6 +49,16 @@ angular.module('nzb-manager')
         }
       })
 
+      .state('app.searchWithBinnews', {
+        url: '/searchWithBinnews',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search/binnews.html',
+            controller: 'searchWithBinnewsCtrl'
+          }
+        }
+      })
+
       .state('app.nzbget', {
         url: '/nzbget',
         views: {

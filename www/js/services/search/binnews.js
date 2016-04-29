@@ -68,7 +68,7 @@ services.factory('searchBinnewsService', [
 
     var currentService = {};
 
-    currentService.getcategories = function () {
+    currentService.getCategories = function () {
       return categories;
     };
 

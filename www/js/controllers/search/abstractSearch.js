@@ -3,6 +3,7 @@ var mainModule = angular.module('mainModule');
 mainModule.controller('abstractSearchCtrl', [
     '$rootScope',
     '$scope',
+    '$controller',
     '$http',
     '$q',
     '$ionicLoading',
@@ -10,11 +11,14 @@ mainModule.controller('abstractSearchCtrl', [
     'configService',
     function ($rootScope,
               $scope,
+              $controller,
               $http,
               $q,
               $ionicLoading,
               $ionicPopover,
               configService) {
+      'use strict';
+      $controller('abstractDefaultCtrl', {$scope: $scope});
 
       $scope.config = {};
       $scope.filters = {
@@ -31,18 +35,6 @@ mainModule.controller('abstractSearchCtrl', [
           $scope.config = actualConfig;
         });
       });
-
-      $scope.displayMessage = function(message, isError) {
-        $rootScope.$broadcast('message:display', isError, message);
-      }
-
-      $scope.splashScreenHide = function() {
-        //$ionicLoading.hide();
-      };
-
-      $scope.splashScreenShow = function() {
-        //$ionicLoading.show();
-      };
 
       var template =
         '<ion-popover-view style="height: 110px;">' +

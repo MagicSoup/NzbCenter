@@ -24,11 +24,24 @@
 }
 
 .display-message-balanced {
-  background: #33cd5f;
+  border-color: #28a54c;
+  background-color: #33cd5f;
+  background-image: linear-gradient(0deg, #28a54c, #28a54c 50%, transparent 50%);
+  color: #fff;
+}
+
+.display-message-energized {
+  border-color: #e6b500;
+  background-color: #ffc900;
+  background-image: linear-gradient(0deg, #e6b500, #e6b500 50%, transparent 50%);
+  color: #fff;
 }
 
 .display-message-assersive {
-  background: #ef473a;
+  border-color: #e42112;
+  background-color: #ef473a;
+  background-image: linear-gradient(0deg, #e42112, #e42112 50%, transparent 50%);
+  color: #fff;
 }
 
 .bar-subheader-for-messages {

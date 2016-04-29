@@ -1,14 +1,15 @@
-var mainModule = angular.module('mainModule', ['ngCordova', 'ab-base64', 'services']);
+var mainModule = angular.module('mainModule', ['ionic-modal-select', 'ngCordova', 'ab-base64', 'services']);
 
 mainModule.controller('mainCtrl', [
+    '$rootScope',
     '$scope',
     '$timeout',
     'configService',
-    function ($scope, $timeout, configService) {
-
+    function ($rootScope, $scope, $timeout, configService) {
+      //load config in root scope
       $scope.config = {};
       $scope.hasMessageToDisplay = false;
-      $scope.isErrorMessage = false;
+      $scope.type = "balanced";
       var hideMessageFunction;
 
       configService.initDB();
@@ -20,15 +21,14 @@ mainModule.controller('mainCtrl', [
         $scope.config = data;
       });
 
-      $scope.$on('message:display', function (event, isError, data) {
-        $scope.isErrorMessage = isError;
+      $scope.$on('message:display', function (event, type, message) {
+        $scope.type = type;
         $scope.hasMessageToDisplay = true;
-        $scope.messageToDisplay = data;
+        $scope.messageToDisplay = message;
         $timeout.cancel(hideMessageFunction);
         hideMessageFunction = $timeout(function () {
           $scope.hasMessageToDisplay = false;
         }, 5000);
-
       });
 
     }]
