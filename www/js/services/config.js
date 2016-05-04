@@ -19,7 +19,7 @@ function configService($q, Loki) {
     return $q(function (resolve, reject) {
 
       var options = {
-        birthdays: {
+        configs: {
           proto: Object,
           inflate: function (src, dst) {
             var prop;

@@ -17,7 +17,7 @@ mainModule.controller('nzbgetCtrl', [
 
           loggerService.turnOn();
 
-          $scope.datas = config.result;
+          $scope.datas = result;
           angular.forEach($scope.datas, function (data) {
             loggerService.log(data.Name + ' => ' + data.Value);
           });
