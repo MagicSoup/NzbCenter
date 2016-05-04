@@ -62,13 +62,6 @@ gulp.task('add-proxies', function() {
     silent: false
   });
   replace({
-    regex: "https://www.nzbclub.com/nzb_get",
-    replacement: "http://localhost:8100/nzb_get",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
     regex: "https://campi-nas.net/nzbget",
     replacement: "http://localhost:8100/nzbget",
     paths: replaceFiles,
@@ -90,13 +83,6 @@ gulp.task('add-proxies', function() {
     silent: false
   });
   replace({
-    regex: "https://api.nzb.su/getnzb",
-    replacement: "http://localhost:8100/getnzb",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
     regex: "http://findnzb.net/rss",
     replacement: "http://localhost:8100/rss",
     paths: replaceFiles,
@@ -106,13 +92,6 @@ gulp.task('add-proxies', function() {
   replace({
     regex: "http://findnzb.net/nzb",
     replacement: "http://localhost:8100/nzb",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "http://findnzb.net/get",
-    replacement: "http://localhost:8100/get",
     paths: replaceFiles,
     recursive: false,
     silent: false
@@ -130,13 +109,6 @@ gulp.task('remove-proxies', function() {
   replace({
     regex: "http://localhost:8100/nzbrss.aspx",
     replacement: "https://www.nzbclub.com/nzbrss.aspx",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "http://localhost:8100/nzb_get",
-    replacement: "https://www.nzbclub.com/nzb_get",
     paths: replaceFiles,
     recursive: false,
     silent: false
@@ -163,13 +135,6 @@ gulp.task('remove-proxies', function() {
     silent: false
   });
   replace({
-    regex: "http://localhost:8100/getnzb",
-    replacement: "https://api.nzb.su/getnzb",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
     regex: "http://localhost:8100/rss",
     replacement: "http://findnzb.net/rss",
     paths: replaceFiles,
@@ -179,13 +144,6 @@ gulp.task('remove-proxies', function() {
   replace({
     regex: "http://localhost:8100/nzb",
     replacement: "http://findnzb.net/nzb",
-    paths: replaceFiles,
-    recursive: false,
-    silent: false
-  });
-  replace({
-    regex: "http://localhost:8100/get",
-    replacement: "http://findnzb.net/get",
     paths: replaceFiles,
     recursive: false,
     silent: false

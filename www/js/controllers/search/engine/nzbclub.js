@@ -13,7 +13,6 @@ mainModule.controller('searchWithNzbclubCtrl', [
     'nzbgetService',
     'sabnzbdService',
     'nzbclubSearchEndpoint',
-    'nzbclubDownloadEndpoint',
     function ($rootScope,
               $scope,
               $controller,
@@ -25,8 +24,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
               searchEngineService,
               nzbgetService,
               sabnzbdService,
-              nzbclubSearchEndpoint,
-              nzbclubDownloadEndpoint) {
+              nzbclubSearchEndpoint) {
       'use strict';
       $controller('abstractSearchCtrl', {$scope: $scope});
 
@@ -81,29 +79,18 @@ mainModule.controller('searchWithNzbclubCtrl', [
 
       $scope.downloadUrlWithNzbget = function (url) {
         $scope.downloadPopover.hide();
-        loggerService.log('downloadUrlWithNzbget => ' + url);
-        var proxyfiedUrl = url.replace(/http:\/\/www.nzbclub.com\/nzb_get/g, nzbclubDownloadEndpoint.url);
-        loggerService.log('downloadUrlWithNzbget proxyfiedUrl => ' + proxyfiedUrl);
-        $http.get(proxyfiedUrl)
-          .success(function (resp) {
-            var urlContentAsBase64 = base64.encode(resp);
-            var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
-            nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, urlContentAsBase64).then(function (resp) {
-              var result = resp.result;
-              if (result <= 0) {
-                loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
-                $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
-              } else {
-                loggerService.log('The nzb file was successfuly uploaded to Nzbget');
-                $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
-              }
-            });
-          })
-          .error(function (err) {
-            loggerService.log(err, 'e');
+        loggerService.log('encodeURI downloadUrlWithNzbget => ' + encodeURI(url));
+        var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
+        nzbgetService.sendNzbFileFromUrl($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, url).then(function (resp) {
+          var result = resp.result;
+          if (result <= 0) {
+            loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
             $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
-            deferred.reject(err);
-          });
+          } else {
+            loggerService.log('The nzb file was successfuly uploaded to Nzbget');
+            $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
+          }
+        });
       };
     }]
 );

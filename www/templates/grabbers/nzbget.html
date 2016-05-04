@@ -1,17 +1,17 @@
-<ion-view view-title="nzbget">
+<ion-view view-title="Nzbget">
   <ion-content>
-    <h1>Nzbget</h1>
-    <form ng-submit="sendNzbFile()">
-    <!--form ng-submit="getServerConfig()"-->
-      <div class="list">
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Get config</button>
-        </label>
-      </div>
-    </form>
-    <ion-list ng-show="isFullyLoaded">
-      <ion-item ng-repeat="data in datas">{{data.Name}} => {{data.Value}}</ion-item>
-    </ion-list>
+
   </ion-content>
 </ion-view>
+<div class="tabs tabs-icon-only">
+  <a class="tab-item">
+    <i class="icon ion-home"></i>
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-star"></i>
+  </a>
+  <a class="tab-item">
+    <i class="icon ion-gear-a"></i>
+  </a>
+</div>
 
