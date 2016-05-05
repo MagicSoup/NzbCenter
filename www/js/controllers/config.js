@@ -32,6 +32,33 @@ mainModule.controller('configCtrl', [
       });
 
       $scope.submitConfig = function () {
+        if ($scope.config.sabnzbd.activated) {
+          $scope.config.sabnzbd.checked = false;
+          sabnzbdService.getServerVersion($scope.config.sabnzbd)
+            .then(function (resp) {
+              var version = resp.data.version;
+              $scope.config.sabnzbd.version = version;
+              $scope.config.sabnzbd.checked = true;
+            })
+            .catch(function (error) {
+              $scope.displayWarningMessage('Attention la configuration car la connexion à Sabnzbd n\'est pas correcte.');
+            });
+        }
+
+        if ($scope.config.nzbget.activated) {
+          $scope.config.nzbget.checked = false;
+          nzbgetService.getServerConfig($scope.config.nzbget)
+            .then(
+            function (resp) {
+              var version = extractNzbgetServerVersion(resp.data.result);
+              $scope.config.nzbget.version = version;
+              $scope.config.nzbget.checked = false;
+            })
+            .catch(function (error) {
+              $scope.displayWarningMessage('Attention la configuration car la connexion à Nzbget n\'est pas correcte.');
+            })
+        }
+
         if (typeof $scope.config.$loki != 'undefined') {
           configService.updateConfig($scope.config);
         } else {
@@ -44,13 +71,9 @@ mainModule.controller('configCtrl', [
       $scope.testNzbgetConfig = function () {
         loggerService.turnOn();
         nzbgetService.getServerConfig($scope.config.nzbget)
-          .then(
-          function (datas) {
-            var version = extractNzbgetServerVersion(datas.data.result);
-            loggerService.log(' Version => ' + version);
-            if ((typeof version != 'undefined')) {
-              $scope.displayMessage('La connexion à Nzbget ' + version + ' est correctement configuré.');
-            }
+          .then(function (resp) {
+            var version = extractNzbgetServerVersion(resp.data.result);
+            $scope.displayMessage('La connexion à Nzbget ' + version + ' est correctement configuré.');
           })
           .catch(function (error) {
             var errorMessage = (error.data == '') ? error.statusText : error.data;
@@ -62,13 +85,9 @@ mainModule.controller('configCtrl', [
       $scope.testSabnzbdConfig = function () {
         loggerService.turnOn();
         sabnzbdService.getServerVersion($scope.config.sabnzbd)
-          .then(
-          function (resp) {
+          .then(function (resp) {
             var version = resp.data.version;
-            loggerService.log(' Version => ' + version);
-            if ((typeof version != 'undefined')) {
-              $scope.displayMessage('La connexion à Sabnzbd ' + version + ' est correctement configuré.');
-            }
+            $scope.displayMessage('La connexion à Sabnzbd ' + version + ' est correctement configuré.');
           })
           .catch(function (error) {
             var errorMessage = (error.data == '') ? error.statusText : error.data;

@@ -69,8 +69,8 @@ mainModule.controller('searchWithNzbclubCtrl', [
               loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
               $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd');
             } else {
-              loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
-              $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb');
+              loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp.data, 'e');
+              $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb : ' + resp.data);
             }
           })
           .catch(function (error) {
@@ -87,8 +87,8 @@ mainModule.controller('searchWithNzbclubCtrl', [
           .then(function (resp) {
             var result = resp.data.result;
             if (result <= 0) {
-              loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
-              $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
+              loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + resp.data, 'e');
+              $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget : ' + resp.data);
             } else {
               loggerService.log('The nzb file was successfuly uploaded to Nzbget');
               $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
