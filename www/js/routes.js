@@ -80,18 +80,9 @@ angular.module('nzb-manager')
         }
       })
 
-      .state('app.nzbget', {
-        url: '/nzbget',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/grabbers/nzbget.html',
-            controller: 'nzbgetCtrl'
-          }
-        }
-      })
-
       .state('app.sabnzbd', {
         url: '/sabnzbd',
+        abstract: true,
         views: {
           'menuContent': {
             templateUrl: 'templates/grabbers/sabnzbd.html',
@@ -100,42 +91,49 @@ angular.module('nzb-manager')
         }
       })
 
-      // setup an abstract state for the tabs directive
-      .state('app.tab', {
-        url: "/tab",
+      .state('app.sabnzbd.queue', {
+        url: '/queue',
+        views: {
+          'tab-sabnzbd-queue': {
+            templateUrl: 'templates/grabbers/sabnzbd-queue.html'
+          }
+        }
+      })
+
+      .state('app.sabnzbd.history', {
+        url: '/history',
+        views: {
+          'tab-sabnzbd-history': {
+            templateUrl: 'templates/grabbers/sabnzbd-history.html'
+          }
+        }
+      })
+
+      .state('app.nzbget', {
+        url: '/nzbget',
         abstract: true,
         views: {
           'menuContent': {
-            templateUrl: "templates/grabbers/tabs.html"
+            templateUrl: 'templates/grabbers/nzbget.html',
+            controller: 'nzbgetCtrl'
           }
         }
       })
 
-      // Each tab has its own nav history stack:
-
-      .state('app.tab.dash', {
-        url: '/dash',
+      .state('app.nzbget.queue', {
+        url: '/queue',
         views: {
-          'tab-dash': {
-            templateUrl: 'templates/grabbers/tab-dash.html'
+          'tab-nzbget-queue': {
+            templateUrl: 'templates/grabbers/nzbget-queue.html'
           }
         }
       })
 
-      .state('app.tab.friends', {
-        url: '/friends',
+      .state('app.nzbget.history', {
+        url: '/history',
         views: {
-          'tab-friends': {
-            templateUrl: 'templates/grabbers/tab-friends.html'
-          }
-        }
-      })
-
-      .state('app.tab.account', {
-        url: '/account',
-        views: {
-          'tab-account': {
-            templateUrl: 'templates/grabbers/tab-account.html'
+          'tab-nzbget-history': {
+            templateUrl: 'templates/grabbers/nzbget-history.html'
           }
         }
       })

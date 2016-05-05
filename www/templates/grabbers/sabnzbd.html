@@ -1,15 +1,8 @@
-s<ion-view view-title="Sabnzbd">
-  <ion-content>
-    <ion-tabs class="tabs-icon-top">
-      <ion-tab title="Dashboard" icon="icon ion-home" ui-sref="app.tab.dash">
-        <ion-nav-view name="tab-dash"></ion-nav-view>
-      </ion-tab>
-      <ion-tab title="Friends" icon="icon ion-heart" ui-sref="app.tab.friends">
-        <ion-nav-view name="tab-friends"></ion-nav-view>
-      </ion-tab>
-      <ion-tab title="Account" icon="icon ion-gear-b" ui-sref="app.tab.account">
-        <ion-nav-view name="tab-account"></ion-nav-view>
-      </ion-tab>
-    </ion-tabs>
-  </ion-content>
-</ion-view>
+<ion-tabs class="tabs-icon-top">
+  <ion-tab title="Sabnzbd : Queue" icon="icon ion-home" ui-sref="app.sabnzbd.queue">
+    <ion-nav-view name="tab-sabnzbd-queue"></ion-nav-view>
+  </ion-tab>
+  <ion-tab title="Sabnzbd : History" icon="icon ion-heart" ui-sref="app.sabnzbd.history">
+    <ion-nav-view name="tab-sabnzbd-history"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
