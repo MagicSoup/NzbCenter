@@ -1,5 +1,13 @@
-<ion-view title="Sabnzbd : Queue">
-  <ion-content class="has-header padding">
-    <h1>Sabnzbd Queue</h1>
+<ion-view title="Sabnzbd" ng-init="initQueues()">
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item-icon-left item-icon-right" ng-repeat="data in queues">
+      <i class="icon ion-play" ng-click="resumeQueueItem(data)" ng-show="{'Paused' : true}[data.status]"></i>
+        <i class="icon ion-pause" ng-click="pauseQueueItem(data)" ng-show="{'Downloading' : true}[data.status]"></i>
+        <h2>{{data.name}}<span class="item-note">{{data.sizeleft}} / {{data.size}}</span></h2>
+        <p>temps restant : {{data.timeleft}}</p>
+        <i class="icon ion-trash-b" ng-click="deleteQueueItem(data)"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

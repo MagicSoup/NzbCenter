@@ -93,6 +93,13 @@ angular.module('nzb-manager')
 
       .state('app.sabnzbd.queue', {
         url: '/queue',
+        params: {
+          origin: {
+            value: 'queue',
+            squash: false
+          },
+          hiddenParam: 'YES'
+        },
         views: {
           'tab-sabnzbd-queue': {
             templateUrl: 'templates/grabbers/sabnzbd-queue.html'
@@ -102,6 +109,13 @@ angular.module('nzb-manager')
 
       .state('app.sabnzbd.history', {
         url: '/history',
+        params: {
+          origin: {
+            value: 'history',
+            squash: false
+          },
+          hiddenParam: 'YES'
+        },
         views: {
           'tab-sabnzbd-history': {
             templateUrl: 'templates/grabbers/sabnzbd-history.html'
