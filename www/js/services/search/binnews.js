@@ -1,6 +1,6 @@
 var services = angular.module('services');
 
-services.factory('searchBinnewsService', [
+services.factory('binnewsService', [
   '$http',
   '$q',
   'loggerService',

@@ -5,19 +5,19 @@ mainModule.controller('searchWithBinnewsCtrl', [
     '$controller',
     '$state',
     '$ionicPopover',
-    'searchBinnewsService',
+    'binnewsService',
     'binnewsCategoryEndpoint',
     function ($scope,
               $controller,
               $state,
               $ionicPopover,
-              searchBinnewsService,
+              binnewsService,
               binnewsCategoryEndpoint) {
       'use strict';
       $controller('abstractSearchCtrl', {$scope: $scope});
 
       $scope.defaultMessage = "Sélectionner une catégorie";
-      $scope.categories = searchBinnewsService.getCategories();
+      $scope.categories = binnewsService.getCategories();
       $scope.displayedCategoryMessage = $scope.defaultMessage;
       $scope.selectedCategory = {};
 
@@ -25,7 +25,7 @@ mainModule.controller('searchWithBinnewsCtrl', [
         $scope.splashScreenShow();
         $scope.displayedCategoryMessage = newValue.categoryName;
         $scope.selectedCategory = newValue;
-        searchBinnewsService.loadCategory(binnewsCategoryEndpoint.url, newValue.categoryId)
+        binnewsService.loadCategory(binnewsCategoryEndpoint.url, newValue.categoryId)
           .then(function (datas) {
             $scope.datas = datas;
             //TODO parse description to remove useless informations

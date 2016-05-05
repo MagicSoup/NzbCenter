@@ -10,6 +10,7 @@ mainModule.controller('configCtrl', [
     'configService',
     'nzbgetService',
     'sabnzbdService',
+    'binnewsService',
     function ($rootScope,
               $scope,
               $controller,
@@ -18,18 +19,40 @@ mainModule.controller('configCtrl', [
               loggerService,
               configService,
               nzbgetService,
-              sabnzbdService) {
+              sabnzbdService,
+              binnewsService) {
       'use strict';
       $controller('abstractDefaultCtrl', {$scope: $scope});
 
+      $scope.filterCategoryText = 'Filtrer les catégories';
+      $scope.categories = [];
       $scope.config = {};
 
       $ionicPlatform.ready(function () {
         configService.initDB();
-        configService.getActualConfig().then(function (actualConfig) {
-          $scope.config = actualConfig;
-        });
+        configService.getActualConfig()
+          .then(function (actualConfig) {
+            $scope.config = actualConfig;
+            $scope.categories = $scope.getCategories();
+          });
       });
+
+      function isInArray(item, array) {
+        return (-1 !== array.indexOf(item));
+      };
+
+      $scope.getCategories = function () {
+        var selectedCategoryIds = $scope.config.binnews.categories.split(';');
+        var categories = [];
+        angular.forEach(binnewsService.getCategories(), function (category) {
+          var categoryId = category.categoryId.toString();
+          var isChecked = isInArray(categoryId, selectedCategoryIds);
+          var item = {id: categoryId, text: category.categoryName, checked: isChecked, icon: null};
+          categories.push(item);
+        });
+
+        return categories;
+      };
 
       $scope.submitConfig = function () {
         if ($scope.config.sabnzbd.activated) {
