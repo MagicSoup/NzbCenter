@@ -66,15 +66,21 @@ mainModule.controller('searchWithNzbclubCtrl', [
         $scope.downloadPopover.hide();
         loggerService.log('downloadUrlWithSabnzbd => ' + url);
         var basicAuth = base64.encode($scope.config.sabnzbd.username + ':' + $scope.config.sabnzbd.password);
-        sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url).then(function (resp) {
-          if (resp.startsWith('ok')) {
-            loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
-            $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd');
-          } else {
-            loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
-            $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb');
-          }
-        });
+        sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, url)
+          .then(function (resp) {
+            if (resp.data.startsWith('ok')) {
+              loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
+              $scope.displayMessage('Le fichier NZB a été correctement envoyé à Sabnzbd');
+            } else {
+              loggerService.log('Error while trying to upload the nzb to Sabnzbd  : ' + resp, 'e');
+              $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Sabnzb');
+            }
+          })
+          .catch(function (error) {
+            var errorMessage = (error.data == '') ? error.statusText : error.data;
+            $scope.displayErrorMessage('Une erreur est survenue lors de l\'envoi du fichier à Sabnzbd. Raison (Status ' + error.status + ' : ' + errorMessage + ')');
+          })
+        ;
       };
 
       $scope.downloadUrlWithNzbget = function (url) {
