@@ -1,5 +1,12 @@
-<ion-view title="Nzbget">
+<ion-view title="Nzbget"ng-init="initHistory(false)">
   <ion-content class="has-header">
-    <h1>Nzbget History</h1>
+    <ion-list>
+      <ion-item class="item-icon-left item-icon-right" ng-repeat="data in histories">
+        <i class="icon" ng-class="{'Completed' : 'ion-thumbsup', 'Failed': 'ion-thumbsdown'}[data.status]"></i>
+        <h2>{{data.name}}<span class="item-note">{{data.size}}</span></h2>
+        <p>{{data.nzbname}}</p>
+        <i class="icon ion-trash-b" ng-click="deleteHistoryItem(data)"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

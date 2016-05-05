@@ -115,8 +115,7 @@ angular.module('nzb-manager')
         abstract: true,
         views: {
           'menuContent': {
-            templateUrl: 'templates/grabbers/nzbget.html',
-            controller: 'nzbgetCtrl'
+            templateUrl: 'templates/grabbers/nzbget.html'
           }
         }
       })
@@ -125,7 +124,8 @@ angular.module('nzb-manager')
         url: '/queue',
         views: {
           'tab-nzbget-queue': {
-            templateUrl: 'templates/grabbers/nzbget-queue.html'
+            templateUrl: 'templates/grabbers/nzbget-queue.html',
+            controller: 'nzbgetQueueCtrl'
           }
         }
       })
@@ -134,7 +134,8 @@ angular.module('nzb-manager')
         url: '/history',
         views: {
           'tab-nzbget-history': {
-            templateUrl: 'templates/grabbers/nzbget-history.html'
+            templateUrl: 'templates/grabbers/nzbget-history.html',
+            controller: 'nzbgetHistoryCtrl'
           }
         }
       })

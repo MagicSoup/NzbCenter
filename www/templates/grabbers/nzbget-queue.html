@@ -1,5 +1,13 @@
-<ion-view title="Nzbget">
+<ion-view title="Nzbget" ng-init="initQueues(false)">
   <ion-content class="has-header">
-
+    <ion-list>
+      <ion-item class="item-icon-left item-icon-right" ng-repeat="data in queues">
+        <i class="icon ion-play" ng-click="resumeQueueItem(data)" ng-show="{'PAUSED' : true}[data.status]"></i>
+        <i class="icon ion-pause" ng-click="pauseQueueItem(data)" ng-show="{'DOWNLOADING' : true,'QUEUED': true}[data.status]"></i>
+        <h2>{{data.name}}<span class="item-note">{{data.sizeleft}} Mo / {{data.size}} Mo</span></h2>
+        <!--p>temps restant : {{data.timeleft}}</p-->
+        <i class="icon ion-trash-b" ng-click="deleteQueueItem(data)"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
