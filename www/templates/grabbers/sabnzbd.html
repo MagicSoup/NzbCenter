@@ -1,31 +1,15 @@
 s<ion-view view-title="Sabnzbd">
   <ion-content>
-
+    <ion-tabs class="tabs-icon-top">
+      <ion-tab title="Dashboard" icon="icon ion-home" ui-sref="app.tab.dash">
+        <ion-nav-view name="tab-dash"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Friends" icon="icon ion-heart" ui-sref="app.tab.friends">
+        <ion-nav-view name="tab-friends"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Account" icon="icon ion-gear-b" ui-sref="app.tab.account">
+        <ion-nav-view name="tab-account"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
   </ion-content>
 </ion-view>
-<html>
-<head>
-  <link href="https://code.ionicframework.com/1.0.0-beta.9/css/ionic.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-<ion-tabs class="tabs-positive tabs-icon-only">
-  <ion-tab title="Local Deals" icon-on="ion-ios7-location" icon-off="ion-ios7-location-outline">
-    <ion-view>
-      <ion-content>
-        <h1>Tab #1</h1>
-      </ion-content>
-    </ion-view>
-  </ion-tab>
-  <ion-tab title="Saved Searches" icon-on="ion-star" icon-off="ion-star">
-    <ion-view>
-      <ion-content>
-        <h1>Tab #2</h1>
-      </ion-content>
-    </ion-view>
-  </ion-tab>
-</ion-tabs>
-</body>
-
-</html>

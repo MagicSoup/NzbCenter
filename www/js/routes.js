@@ -98,8 +98,48 @@ angular.module('nzb-manager')
             controller: 'sabnzbdCtrl'
           }
         }
-      }
-    );
+      })
+
+      // setup an abstract state for the tabs directive
+      .state('app.tab', {
+        url: "/tab",
+        abstract: true,
+        views: {
+          'menuContent': {
+            templateUrl: "templates/grabbers/tabs.html"
+          }
+        }
+      })
+
+      // Each tab has its own nav history stack:
+
+      .state('app.tab.dash', {
+        url: '/dash',
+        views: {
+          'tab-dash': {
+            templateUrl: 'templates/grabbers/tab-dash.html'
+          }
+        }
+      })
+
+      .state('app.tab.friends', {
+        url: '/friends',
+        views: {
+          'tab-friends': {
+            templateUrl: 'templates/grabbers/tab-friends.html'
+          }
+        }
+      })
+
+      .state('app.tab.account', {
+        url: '/account',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/grabbers/tab-account.html'
+          }
+        }
+      })
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/nzb-manager/config');
