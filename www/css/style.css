@@ -45,6 +45,7 @@
   display: block;
   position: relative !important;
   height: initial !important;
+  border-bottom: 0px !important;
 }
 
 .row-no-padding {
