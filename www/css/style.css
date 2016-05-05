@@ -51,3 +51,34 @@
 .row-no-padding {
   padding: 0px !important;
 }
+
+.row-binnews {
+
+}
+
+.row-binnews-header {
+  min-height: 30px;
+  background-color: #f5f5f5;
+  color: #222;
+  font-weight: 500;
+  padding: 0px !important;
+}
+
+.col-binnews {
+  border-color: #ddd;
+  background-color: #fff;
+  color: #444;
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin: -1px;
+  padding: 16px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  font-size: 16px;
+}
+
+.col-binnews-header {
+  background-color: #f5f5f5 !important;
+}

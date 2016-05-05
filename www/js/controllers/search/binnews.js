@@ -16,10 +16,30 @@ mainModule.controller('searchWithBinnewsCtrl', [
       'use strict';
       $controller('abstractSearchCtrl', {$scope: $scope});
 
+      $scope.categories = [];
       $scope.defaultMessage = "Sélectionner une catégorie";
-      $scope.categories = binnewsService.getCategories();
       $scope.displayedCategoryMessage = $scope.defaultMessage;
       $scope.selectedCategory = {};
+
+      function isInArray(item, array) {
+        return (-1 !== array.indexOf(item));
+      };
+
+      $scope.getCategories = function (config) {
+        var selectedCategoryIds = config.binnews.categories.split(';');
+        var categories = [];
+        angular.forEach(binnewsService.getCategories(), function (category) {
+          var isChecked = isInArray(category.categoryId.toString(), selectedCategoryIds);
+          if (isChecked) {
+            categories.push(category);
+          }
+        });
+        return categories;
+      };
+
+      $scope.$on("config:loaded", function (event, config) {
+        $scope.categories = $scope.getCategories(config);
+      });
 
       $scope.onCategorySelect = function (newValue, oldValue) {
         $scope.splashScreenShow();
@@ -27,12 +47,40 @@ mainModule.controller('searchWithBinnewsCtrl', [
         $scope.selectedCategory = newValue;
         binnewsService.loadCategory(binnewsCategoryEndpoint.url, newValue.categoryId)
           .then(function (datas) {
-            $scope.datas = datas;
-            //TODO parse description to remove useless informations
+            var temporaryDatas = [];
+            angular.forEach(datas, function (data) {
+              var extractedDescriptions = extractDescriptionContent(data.description);
+              var updatedData = {source: data, content: extractedDescriptions}
+              temporaryDatas.push(updatedData);
+            });
+            $scope.datas = temporaryDatas;
             $scope.isFullyLoaded = true;
             $scope.splashScreenHide();
           });
       };
+
+      function extractDescriptionContent(description) {
+        var descriptions = description.split('<br>');
+        var descriptionMap = {};
+        angular.forEach(descriptions, function (description) {
+          var key = description.split(':')[0];
+          var value = description.split(':')[1];
+          if(key != 'undefined' && key.trim() != '' && !key.trim().startsWith('<a')){
+            descriptionMap[key.trim()] = value.trim();
+          }
+        });
+
+        var description = {
+          fileName: descriptionMap["Nom du fichier"],
+          category: descriptionMap["Catégorie"],
+          newsgroup: descriptionMap["Newsgroup"],
+          subCategory: descriptionMap["Sous-Catégorie"],
+          language: descriptionMap["Langue"],
+          highQuality: descriptionMap["Résolution HD"],
+          size: descriptionMap["Taille"]
+        };
+        return description;
+      }
 
       $scope.onCategoryReset = function () {
         $scope.displayedCategoryMessage = $scope.defaultMessage;
@@ -40,27 +88,17 @@ mainModule.controller('searchWithBinnewsCtrl', [
 
       $scope.searchWithNzbsu = function (data) {
         $scope.searchPopover.hide();
-        $scope.searchQuery = extractFileName(data);
-        $state.go('app.searchWithNzbsu', {query: $scope.searchQuery});
+        $state.go('app.searchWithNzbsu', {query: data.content.fileName});
       };
 
       $scope.searchWithFindNzb = function (data) {
         $scope.searchPopover.hide();
-        $scope.searchQuery = extractFileName(data);
-        $state.go('app.searchWithFindnzb', {query: $scope.searchQuery});
+        $state.go('app.searchWithFindnzb', {query: data.content.fileName});
       };
 
       $scope.searchWithNzbclub = function (data) {
         $scope.searchPopover.hide();
-        $scope.searchQuery = extractFileName(data);
-        $state.go('app.searchWithNzbclub', {query: $scope.searchQuery});
-      };
-
-      function extractFileName(data) {
-        var descriptionArray = data.description.split('<br>');
-        var fileNameContent = descriptionArray[3];
-        fileNameContent = fileNameContent.split(':')[1].trim();
-        return fileNameContent;
+        $state.go('app.searchWithNzbclub', {query: data.content.fileName});
       };
 
       var searchTemplate =

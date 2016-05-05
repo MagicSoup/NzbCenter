@@ -33,6 +33,7 @@ mainModule.controller('abstractSearchCtrl', [
         $scope.isFullyLoaded = false;
         configService.getActualConfig().then(function (actualConfig) {
           $scope.config = actualConfig;
+          $scope.$emit("config:loaded", $scope.config);
         });
       });
 

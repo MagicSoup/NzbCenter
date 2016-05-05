@@ -18,14 +18,29 @@
         </button>
       </label>
     </div>
-    <ion-list ng-show="isFullyLoaded">
-      <ion-item class="item-divider">
-        <div>Résultat</div>
+    <div ng-show="isFullyLoaded">
+      <div class="row row-binnews row-binnews-header">
+        <div class="col col-20 col-binnews col-binnews-header">Taille</div>
+        <div class="col col-binnews col-binnews-header">Fichier</div>
+      </div>
+      <div class="row row-binnews" ng-repeat="data in datas" ng-click="openSearchPopover($event,data)">
+        <div class="col col-20 col-binnews">{{data.content.size}}</div>
+        <div class="col col-binnews">
+          {{data.source.title}}
+        </div>
+      </div>
+      <!--ion-item class="item-divider">
+        <div class="search-col-length">Taille</div>
+        <div>Nom du fichier</div>
       </ion-item>
       <ion-item ng-repeat="data in datas" ng-click="openSearchPopover($event,data)">
-        <div>{{data.title}}</div>
-        <div ng-bind-html="data.description"></div>
-      </ion-item>
-    </ion-list>
+        <div class="search-col-length">{{data.content.size}}</div>
+        <div>
+          <h2>{{data.source.title}}</h2>
+          <p>{{data.content.fileName}}</p>
+        </div>
+      </ion-item-->
+    </div>
   </ion-content>
 </ion-view>
+
