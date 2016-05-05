@@ -5,12 +5,12 @@ mainModule.controller('nzbgetHistoryCtrl', [
     '$interval',
     '$state',
     'loggerService',
-    'sabnzbdService',
+    'nzbgetService',
     function ($scope,
               $interval,
               $state,
               loggerService,
-              sabnzbdService) {
+              nzbgetService) {
 
       $scope.timerActivated = false;
       $scope.histories = [];
@@ -58,9 +58,9 @@ mainModule.controller('nzbgetHistoryCtrl', [
 
       $scope.initHistory = function () {
         console.log("initHistory");
-        sabnzbdService.getServerHistory($scope.config.sabnzbd, 0, 20)
+        nzbgetService.getServerHistory($scope.config.nzbget)
           .then(function (resp) {
-            $scope.histories = extractHistoryItems(resp.data.history.slots);
+            $scope.histories = extractHistoryItems(resp.data.result);
           })
           .catch(function (error) {
             console.log(error.data);
@@ -73,7 +73,7 @@ mainModule.controller('nzbgetHistoryCtrl', [
       };
 
       $scope.deleteHistoryItem = function (data) {
-        sabnzbdService.deleteHistory($scope.config.sabnzbd, data.id)
+        nzbgetService.deleteHistory($scope.config.nzbget, data.id)
           .then(function (resp) {
             console.log(resp.data);
             $scope.initHistory();
@@ -87,12 +87,15 @@ mainModule.controller('nzbgetHistoryCtrl', [
         var datas = [];
 
         angular.forEach(items, function (item) {
+          var status = item.Status.split('/')[0];
           var data = {
-            id: item.nzo_id,
-            name: item.name,
-            nzbname: item.nzb_name,
-            status: item.status,
-            size: item.size
+            id: item.NZBID,
+            name: item.NZBName,
+            filename: item.NZBFilename,
+            status: status,
+            size: item.FileSizeMB,
+            sizeleft: item.RemainingSizeMB,
+            timeleft: item.PostStageTimeSec
           };
           datas.push(data);
         });

@@ -111,7 +111,6 @@ mainModule.controller('nzbgetQueueCtrl', [
         var datas = [];
 
         angular.forEach(items, function (item) {
-          console.log(item.Status);
           var data = {
             id: item.NZBID,
             name: item.NZBName,
