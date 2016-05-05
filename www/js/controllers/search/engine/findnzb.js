@@ -120,17 +120,22 @@ mainModule.controller('searchWithFindnzbCtrl', [
           .then(function (resp) {
             loggerService.log('encodeURI downloadUrlWithNzbget => ' + encodeURI(resp));
             var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
-            nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, resp).then(function (resp) {
-              var result = resp.result;
-              if (result <= 0) {
-                loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
-                $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
-              } else {
-                loggerService.log('The nzb file was successfuly uploaded to Nzbget');
-                $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
-              }
-            });
-
+            nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, resp)
+              .then(function (resp) {
+                var result = resp.data.result;
+                if (result <= 0) {
+                  loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
+                  $scope.displayErrorMessage('Une erreur est survenue lors de la tentative d\'envoi du fichier NZB à Nzbget');
+                } else {
+                  loggerService.log('The nzb file was successfuly uploaded to Nzbget');
+                  $scope.displayMessage('Le fichier NZB a été correctement envoyé à Nzbget');
+                }
+              })
+              .catch(function (error) {
+                var errorMessage = (error.data == '') ? error.statusText : error.data;
+                $scope.displayErrorMessage('Une erreur est survenue lors de l\'envoi du fichier à Nzbget. Raison (Status ' + error.status + ' : ' + errorMessage + ')');
+              })
+            ;
           });
       };
     }]
