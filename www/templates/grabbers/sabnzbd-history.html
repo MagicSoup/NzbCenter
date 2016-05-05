@@ -1,7 +1,6 @@
 <ion-view title="Sabnzbd" ng-init="initHistory(false)">
   <ion-content class="has-header">
     <ion-list>
-      test : {{test}}
       <ion-item class="item-icon-left item-icon-right" ng-repeat="data in histories">
         <i class="icon" ng-class="{'Completed' : 'ion-thumbsup', 'Failed': 'ion-thumbsdown'}[data.status]"></i>
         <h2>{{data.name}}<span class="item-note">{{data.size}}</span></h2>

@@ -1,7 +1,6 @@
 <ion-view title="Sabnzbd" ng-init="initQueues(false)">
   <ion-content class="has-header">
     <ion-list>
-      test : {{test}}
       <ion-item class="item-icon-left item-icon-right" ng-repeat="data in queues">
       <i class="icon ion-play" ng-click="resumeQueueItem(data)" ng-show="{'Paused' : true}[data.status]"></i>
         <i class="icon ion-pause" ng-click="pauseQueueItem(data)" ng-show="{'Downloading' : true}[data.status]"></i>
