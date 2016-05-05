@@ -85,40 +85,27 @@ angular.module('nzb-manager')
         abstract: true,
         views: {
           'menuContent': {
-            templateUrl: 'templates/grabbers/sabnzbd.html',
-            controller: 'sabnzbdCtrl'
+            templateUrl: 'templates/grabbers/sabnzbd.html'
           }
         }
       })
 
       .state('app.sabnzbd.queue', {
         url: '/queue',
-        params: {
-          origin: {
-            value: 'queue',
-            squash: false
-          },
-          hiddenParam: 'YES'
-        },
         views: {
           'tab-sabnzbd-queue': {
-            templateUrl: 'templates/grabbers/sabnzbd-queue.html'
+            templateUrl: 'templates/grabbers/sabnzbd-queue.html',
+            controller: 'sabnzbdQueueCtrl'
           }
         }
       })
 
       .state('app.sabnzbd.history', {
         url: '/history',
-        params: {
-          origin: {
-            value: 'history',
-            squash: false
-          },
-          hiddenParam: 'YES'
-        },
         views: {
           'tab-sabnzbd-history': {
-            templateUrl: 'templates/grabbers/sabnzbd-history.html'
+            templateUrl: 'templates/grabbers/sabnzbd-history.html',
+            controller: 'sabnzbdHistoryCtrl'
           }
         }
       })
