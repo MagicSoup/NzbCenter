@@ -81,7 +81,7 @@ mainModule.controller('searchWithNzbclubCtrl', [
         $scope.downloadPopover.hide();
         loggerService.log('encodeURI downloadUrlWithNzbget => ' + encodeURI(url));
         var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
-        nzbgetService.sendNzbFileFromUrl($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, url).then(function (resp) {
+        nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, url).then(function (resp) {
           var result = resp.result;
           if (result <= 0) {
             loggerService.log('Error while trying to upload the nzb to Nzbget  : ' + result, 'e');
