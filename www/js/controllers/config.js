@@ -43,7 +43,7 @@ mainModule.controller('configCtrl', [
 
       $scope.testNzbgetConfig = function () {
         loggerService.turnOn();
-        nzbgetService.getServerConfig($scope.config.nzbget.url, $scope.config.nzbget.username, $scope.config.nzbget.password)
+        nzbgetService.getServerConfig($scope.config.nzbget)
           .then(
           function (datas) {
             var version = extractNzbgetServerVersion(datas.data.result);
@@ -60,7 +60,21 @@ mainModule.controller('configCtrl', [
       };
 
       $scope.testSabnzbdConfig = function () {
-
+        loggerService.turnOn();
+        sabnzbdService.getServerVersion($scope.config.sabnzbd)
+          .then(
+          function (resp) {
+            var version = resp.data.version;
+            loggerService.log(' Version => ' + version);
+            if ((typeof version != 'undefined')) {
+              $scope.displayMessage('La connexion à Sabnzbd ' + version + ' est correctement configuré.');
+            }
+          })
+          .catch(function (error) {
+            var errorMessage = (error.data == '') ? error.statusText : error.data;
+            $scope.displayErrorMessage('La connexion à Sabnzbd est incorrectement configuré. Raison (Status ' + error.status + ' : ' + errorMessage + ')');
+          })
+        ;
       };
 
       function extractNzbgetServerVersion(datas) {
