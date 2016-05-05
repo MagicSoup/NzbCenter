@@ -6,7 +6,6 @@ mainModule.controller('configCtrl', [
     '$controller',
     '$ionicPlatform',
     'Loki',
-    'base64',
     'loggerService',
     'configService',
     'nzbgetService',
@@ -16,7 +15,6 @@ mainModule.controller('configCtrl', [
               $controller,
               $ionicPlatform,
               Loki,
-              base64,
               loggerService,
               configService,
               nzbgetService,
@@ -45,8 +43,7 @@ mainModule.controller('configCtrl', [
 
       $scope.testNzbgetConfig = function () {
         loggerService.turnOn();
-        var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
-        nzbgetService.getServerConfig($scope.config.nzbget.url, basicAuth)
+        nzbgetService.getServerConfig($scope.config.nzbget.url, $scope.config.nzbget.username, $scope.config.nzbget.password)
           .then(
           function (datas) {
             var version = extractNzbgetServerVersion(datas.data.result);

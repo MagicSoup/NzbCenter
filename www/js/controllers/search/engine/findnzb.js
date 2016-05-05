@@ -7,7 +7,6 @@ mainModule.controller('searchWithFindnzbCtrl', [
     '$stateParams',
     '$http',
     '$q',
-    'base64',
     'loggerService',
     'searchEngineService',
     'nzbgetService',
@@ -20,7 +19,6 @@ mainModule.controller('searchWithFindnzbCtrl', [
               $stateParams,
               $http,
               $q,
-              base64,
               loggerService,
               searchEngineService,
               nzbgetService,
@@ -100,8 +98,7 @@ mainModule.controller('searchWithFindnzbCtrl', [
         $scope.downloadPopover.hide();
         downloadUrl(url)
           .then(function (respUrl) {
-            var basicAuth = base64.encode($scope.config.sabnzbd.username + ':' + $scope.config.sabnzbd.password);
-            sabnzbdService.sendNzbFile($scope.config.sabnzbd.url, basicAuth, $scope.config.sabnzbd.apikey, $scope.filters.query, $scope.config.sabnzbd.category, respUrl)
+            sabnzbdService.sendNzbFile($scope.config.sabnzbd, $scope.filters.query, respUrl)
               .then(function (resp) {
                 if (resp.data.startsWith('ok')) {
                   loggerService.log('The nzb file was successfuly uploaded to Sabnzbd');
@@ -125,8 +122,7 @@ mainModule.controller('searchWithFindnzbCtrl', [
         downloadUrl(url)
           .then(function (resp) {
             loggerService.log('encodeURI downloadUrlWithNzbget => ' + encodeURI(resp));
-            var basicAuth = base64.encode($scope.config.nzbget.username + ':' + $scope.config.nzbget.password);
-            nzbgetService.sendNzbFile($scope.config.nzbget.url, basicAuth, $scope.filters.query, $scope.config.nzbget.category, resp)
+            nzbgetService.sendNzbFile($scope.config.nzbget, $scope.filters.query, resp)
               .then(function (resp) {
                 var result = resp.data.result;
                 if (result <= 0) {
