@@ -3,39 +3,34 @@ var mainModule = angular.module('nzb-manager');
 mainModule.directive('fancySelect',
   [
     '$ionicModal',
-    function($ionicModal) {
+    function ($ionicModal) {
       return {
         /* Only use as <fancy-select> tag */
-        restrict : 'E',
+        restrict: 'E',
 
         /* Our template */
         templateUrl: 'js/directive/fancy-select.html',
 
         /* Attributes to set */
         scope: {
-          'items'        : '=', /* Items list is mandatory */
-          'text'         : '=', /* Displayed text is mandatory */
-          'value'        : '=', /* Selected value binding is mandatory */
-          'callback'     : '&'
+          'items': '=', /* Items list is mandatory */
+          'text': '=', /* Displayed text is mandatory */
+          'value': '=', /* Selected value binding is mandatory */
+          'callback': '&'
         },
 
         link: function (scope, element, attrs) {
 
           /* Default values */
-          scope.multiSelect   = attrs.multiSelect === 'true' ? true : false;
-          scope.allowEmpty    = attrs.allowEmpty === 'false' ? false : true;
+          scope.multiSelect = attrs.multiSelect === 'true' ? true : false;
+          scope.allowEmpty = attrs.allowEmpty === 'false' ? false : true;
 
           /* Header used in ion-header-bar */
-          scope.headerText    = attrs.headerText || '';
+          scope.headerText = attrs.headerText || '';
 
           /* Text displayed on label */
           // scope.text          = attrs.text || '';
-          scope.defaultText   = scope.text || '';
-
-          /* Notes in the right side of the label */
-          scope.noteText      = attrs.noteText || '';
-          scope.noteImg       = attrs.noteImg || '';
-          scope.noteImgClass  = attrs.noteImgClass || '';
+          scope.defaultText = scope.text || '';
 
           /* Optionnal callback function */
           // scope.callback = attrs.callback || null;
@@ -60,37 +55,52 @@ mainModule.directive('fancySelect',
            * anymore.
            *
            */
-          $ionicModal.fromTemplateUrl(
-            'js/directive/fancy-select-items.html',
-            {'scope': scope}
-          ).then(function(modal) {
+          $ionicModal.fromTemplateUrl('js/directive/fancy-select-items.html', {'scope': scope})
+            .then(function (modal) {
               scope.modal = modal;
             });
+
+          scope.$watch(scope.items, function () {
+            var text = scope.text;
+            var containsValues = initFromCheckedValues();
+            if (!containsValues) {
+              scope.text = text;
+            }
+          });
+
+          function initFromCheckedValues() {
+            var containsValues = false;
+
+            // Clear values
+            scope.value = '';
+            scope.text = '';
+
+            // Loop on items
+            angular.forEach(scope.items, function (item) {
+              if (item.checked) {
+                containsValues = true;
+                scope.value = scope.value + item.id + ';';
+                scope.text = scope.text + item.text + ', ';
+              }
+            });
+
+            // Remove trailing comma
+            scope.value = scope.value.substr(0, scope.value.length - 1);
+            scope.text = scope.text.substr(0, scope.text.length - 2);
+
+            return containsValues;
+          };
+
 
           /* Validate selection from header bar */
           scope.validate = function (event) {
             // Construct selected values and selected text
             if (scope.multiSelect == true) {
-
-              // Clear values
-              scope.value = '';
-              scope.text = '';
-
-              // Loop on items
-              angular.forEach(scope.items, function (item) {
-                if (item.checked) {
-                  scope.value = scope.value + item.id+';';
-                  scope.text = scope.text + item.text+', ';
-                }
-              });
-
-              // Remove trailing comma
-              scope.value = scope.value.substr(0,scope.value.length - 1);
-              scope.text = scope.text.substr(0,scope.text.length - 2);
+              initFromCheckedValues();
             }
 
             // Select first value if not nullable
-            if (typeof scope.value == 'undefined' || scope.value == '' || scope.value == null ) {
+            if (typeof scope.value == 'undefined' || scope.value == '' || scope.value == null) {
               if (scope.allowEmpty == false) {
                 scope.value = scope.items[0].id;
                 scope.text = scope.items[0].text;
@@ -107,7 +117,7 @@ mainModule.directive('fancySelect',
 
             // Execute callback function
             if (typeof scope.callback == 'function') {
-              scope.callback (scope.value);
+              scope.callback(scope.value);
             }
           }
 
@@ -123,7 +133,7 @@ mainModule.directive('fancySelect',
           }
 
           /* Destroy modal */
-          scope.$on('$destroy', function() {
+          scope.$on('$destroy', function () {
             scope.modal.remove();
           });
 
@@ -141,11 +151,13 @@ mainModule.directive('fancySelect',
 
             // Execute callback function
             if (typeof scope.callback == 'function') {
-              scope.callback (scope.value);
+              scope.callback(scope.value);
             }
           }
         }
-      };
+      }
+        ;
     }
   ]
-);
+)
+;

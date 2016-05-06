@@ -18,7 +18,7 @@
         ng-model="item.checked"
         class="item item-text-wrap">
         <div class="fancy-select-icon" ng-if="item.icon != null">
-          <img src="{{item.icon}}"/>
+          <img ng-src="item.icon" />
         </div>
         {{item.text}}
       </ion-toggle>

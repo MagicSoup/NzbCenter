@@ -1,9 +1,6 @@
 <ion-list>
-  <ion-item class="item-text-wrap" ng-click="showItems($event)">
+  <ion-item class="item-text-wrap item-icon-right" ng-click="showItems($event)">
     {{text}}
-    <span class="item-note">
-      {{noteText}}
-      <img class="{{noteImgClass}}" ng-if="noteImg != ''" src="{{noteImg}}" />
-    </span>
+    <i class="icon ion-chevron-right positive"></i>
   </ion-item>
 </ion-list>
