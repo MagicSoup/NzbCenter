@@ -9,7 +9,7 @@ mainModule.directive('fancySelect',
         restrict : 'E',
 
         /* Our template */
-        templateUrl: 'fancy-select.html',
+        templateUrl: 'js/directive/fancy-select.html',
 
         /* Attributes to set */
         scope: {
@@ -61,7 +61,7 @@ mainModule.directive('fancySelect',
            *
            */
           $ionicModal.fromTemplateUrl(
-            'fancy-select-items.html',
+            'js/directive/fancy-select-items.html',
             {'scope': scope}
           ).then(function(modal) {
               scope.modal = modal;
@@ -77,7 +77,7 @@ mainModule.directive('fancySelect',
               scope.text = '';
 
               // Loop on items
-              jQuery.each(scope.items, function (index, item) {
+              angular.forEach(scope.items, function (item) {
                 if (item.checked) {
                   scope.value = scope.value + item.id+';';
                   scope.text = scope.text + item.text+', ';
