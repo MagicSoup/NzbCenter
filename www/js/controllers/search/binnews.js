@@ -26,8 +26,17 @@ mainModule.controller('searchWithBinnewsCtrl', [
       };
 
       $scope.getCategories = function (config) {
-        var selectedCategoryIds = config.binnews.categories.split(';');
+        var selectedCategoryIds = [];
         var categories = [];
+
+        if (
+          (typeof config.binnews) != 'undefined' &&
+          (typeof config.binnews.categories) != 'undefined') {
+          selectedCategoryIds = config.binnews.categories.split(';');
+        } else {
+          return binnewsService.getCategories();
+        }
+
         angular.forEach(binnewsService.getCategories(), function (category) {
           var isChecked = isInArray(category.categoryId.toString(), selectedCategoryIds);
           if (isChecked) {
@@ -65,7 +74,7 @@ mainModule.controller('searchWithBinnewsCtrl', [
         angular.forEach(descriptions, function (description) {
           var key = description.split(':')[0];
           var value = description.split(':')[1];
-          if(key != 'undefined' && key.trim() != '' && !key.trim().startsWith('<a')){
+          if (key != 'undefined' && key.trim() != '' && !key.trim().startsWith('<a')) {
             descriptionMap[key.trim()] = value.trim();
           }
         });

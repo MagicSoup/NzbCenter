@@ -42,8 +42,15 @@ mainModule.controller('configCtrl', [
       };
 
       $scope.getCategories = function () {
-        var selectedCategoryIds = $scope.config.binnews.categories.split(';');
+        var selectedCategoryIds = [];
         var categories = [];
+
+        if(
+          (typeof $scope.config.binnews) != 'undefined' &&
+          (typeof $scope.config.binnews.categories) != 'undefined'){
+          selectedCategoryIds = $scope.config.binnews.categories.split(';');
+        }
+
         angular.forEach(binnewsService.getCategories(), function (category) {
           var categoryId = category.categoryId.toString();
           var isChecked = isInArray(categoryId, selectedCategoryIds);
