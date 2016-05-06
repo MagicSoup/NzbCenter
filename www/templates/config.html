@@ -6,6 +6,7 @@
           Indexeur : Clef d'API
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.apikey.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -25,6 +26,7 @@
           Nzbget
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.nzbget.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -47,6 +49,7 @@
             <span class="input-label">Mot de passe :</span>
             <input type="password" name="configNzbgetPassword" ng-model="config.nzbget.password"/>
           </label>
+
           <div class="item item-button-right">
             Tester la connexion :
             <button class="button button-positive" ng-click="testNzbgetConfig()">
@@ -58,6 +61,7 @@
           Sabnzbd
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.sabnzbd.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -84,6 +88,7 @@
             <span class="input-label">Clef API :</span>
             <input type="text" name="configSabnzbdApiKey" ng-model="config.sabnzbd.apikey"/>
           </label>
+
           <div class="item item-button-right">
             Tester la connexion :
             <button class="button button-positive" ng-click="testSabnzbdConfig()">
@@ -95,13 +100,14 @@
           Binnews
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.binnews.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
           </label>
         </div>
         <fancy-select
-          header-text="Multiple"
+          header-text="Catégories"
           allow-empty='false'
           value="config.binnews.categories"
           text="filterCategoryText"
@@ -114,6 +120,7 @@
           Nzbclub
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.searchengine.nzbclub.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
@@ -123,12 +130,19 @@
           Findnzb
           <label class="toggle toggle-positive">
             <input type="checkbox" ng-model="config.searchengine.findnzb.activated">
+
             <div class="track">
               <div class="handle"></div>
             </div>
           </label>
         </div>
-
+        <fancy-select
+          header-text="Page par défaut"
+          allow-empty='false'
+          value="config.defaultPageId"
+          text="filterDefaultPage"
+          items="pages">
+        </fancy-select>
         <button class="button button-full button-positive" type="submit" ng-click="submitConfig()">Sauvegarder</button>
 
       </div>

@@ -25,8 +25,10 @@ mainModule.controller('configCtrl', [
       $controller('abstractDefaultCtrl', {$scope: $scope});
 
       $scope.filterCategoryText = 'Filtrer les catégories';
+      $scope.filterDefaultPage = 'Page par défaut';
       $scope.categories = [];
       $scope.config = {};
+      $scope.pages = [];
 
       $ionicPlatform.ready(function () {
         configService.initDB();
@@ -34,6 +36,7 @@ mainModule.controller('configCtrl', [
           .then(function (actualConfig) {
             $scope.config = actualConfig;
             $scope.categories = $scope.getCategories();
+            $scope.pages = $scope.getPages();
           });
       });
 
@@ -45,9 +48,9 @@ mainModule.controller('configCtrl', [
         var selectedCategoryIds = [];
         var categories = [];
 
-        if(
+        if (
           (typeof $scope.config.binnews) != 'undefined' &&
-          (typeof $scope.config.binnews.categories) != 'undefined'){
+          (typeof $scope.config.binnews.categories) != 'undefined') {
           selectedCategoryIds = $scope.config.binnews.categories.split(';');
         }
 
@@ -59,6 +62,21 @@ mainModule.controller('configCtrl', [
         });
 
         return categories;
+      };
+
+      $scope.getPages = function () {
+        var pages = [
+          {id: 'config', text: 'Configuration', checked: false, icon: null},
+          {id: 'searchWithBinnews', text: 'Binnews', checked: false, icon: null}
+        ];
+
+        angular.forEach(pages, function (page) {
+          if ((typeof $scope.config.defaultPageId) != 'undefined' && $scope.config.defaultPageId == page.id) {
+            page.checked = true;
+          }
+        });
+
+        return pages;
       };
 
       $scope.submitConfig = function () {
@@ -135,9 +153,6 @@ mainModule.controller('configCtrl', [
         });
         return version;
       }
-
-      //TODO add some function used to test the connection to the service
-
     }
   ]
 );

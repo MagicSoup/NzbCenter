@@ -1,5 +1,6 @@
-angular.module('nzb-manager')
-  .config(function ($stateProvider, $urlRouterProvider) {
+var module = angular.module('nzb-manager');
+
+module.config(function ($stateProvider, $urlRouterProvider, configServiceProvider) {
 
     $stateProvider
       .state('app', {
