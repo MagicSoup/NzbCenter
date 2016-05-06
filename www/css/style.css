@@ -53,7 +53,6 @@
 }
 
 .row-binnews {
-
 }
 
 .row-binnews-header {
@@ -81,4 +80,27 @@
 
 .col-binnews-header {
   background-color: #f5f5f5 !important;
+}
+
+.col-binnews-header h2 {
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+.col-binnews h2 {
+  margin: 0 0 2px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+.col-binnews .informations {
+  color: #000;
+  margin: 0 0 2px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.col-binnews .file-name {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 2px;
 }

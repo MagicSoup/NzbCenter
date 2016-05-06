@@ -20,26 +20,19 @@
     </div>
     <div ng-show="isFullyLoaded">
       <div class="row row-binnews row-binnews-header">
-        <div class="col col-20 col-binnews col-binnews-header">Taille</div>
-        <div class="col col-binnews col-binnews-header">Fichier</div>
+        <div class="col col-40 col-binnews col-binnews-header"><h2>Informations</h2></div>
+        <div class="col col-binnews col-binnews-header"><h2>Fichier</h2></div>
       </div>
       <div class="row row-binnews" ng-repeat="data in datas" ng-click="openSearchPopover($event,data)">
-        <div class="col col-20 col-binnews">{{data.content.size}}</div>
+        <div class="col col-40 col-binnews">
+          <div ng-if="data.content.highQuality != null"><span class="informations">Résolution :</span> {{data.content.highQuality}}</div>
+          <div><span class="informations">Taille :</span> {{data.content.size}}</div>
+        </div>
         <div class="col col-binnews">
-          {{data.source.title}}
+          <h2>{{data.source.title}}</h2>
+          Fichier : <span class="file-name">{{data.content.fileName}}</span>
         </div>
       </div>
-      <!--ion-item class="item-divider">
-        <div class="search-col-length">Taille</div>
-        <div>Nom du fichier</div>
-      </ion-item>
-      <ion-item ng-repeat="data in datas" ng-click="openSearchPopover($event,data)">
-        <div class="search-col-length">{{data.content.size}}</div>
-        <div>
-          <h2>{{data.source.title}}</h2>
-          <p>{{data.content.fileName}}</p>
-        </div>
-      </ion-item-->
     </div>
   </ion-content>
 </ion-view>
