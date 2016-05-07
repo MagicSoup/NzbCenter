@@ -1,10 +1,6 @@
 var services = angular.module('services');
 
-services.factory('searchIndexerService', [
-  '$http',
-  '$q',
-  'loggerService',
-  'rssService',
+services.factory('searchIndexerService',
   function ($http,
             $q,
             loggerService,
@@ -41,4 +37,4 @@ services.factory('searchIndexerService', [
 
     return currentService;
   }
-]);
+);

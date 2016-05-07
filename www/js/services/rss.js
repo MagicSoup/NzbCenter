@@ -1,6 +1,6 @@
 var services = angular.module('services');
 
-services.factory('rssService', [
+services.factory('rssService',
   function () {
 
     var currentService = {};
@@ -45,4 +45,4 @@ services.factory('rssService', [
 
     return currentService;
   }
-]);
+);
