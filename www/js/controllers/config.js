@@ -20,6 +20,11 @@ mainModule.controller('configCtrl',
     $scope.config = {};
     $scope.pages = [];
 
+
+    $scope.$on('config:updated', function () {
+      $scope.pages = $scope.getPages();
+    });
+
     $ionicPlatform.ready(function () {
       configService.initDB();
       configService.getActualConfig()
@@ -55,18 +60,63 @@ mainModule.controller('configCtrl',
     };
 
     $scope.getPages = function () {
+
+      var isApiKeyActivated = false;
+      if ((typeof $scope.config.apikey) != 'undefined') {
+        isApiKeyActivated = $scope.config.apikey.activated;
+      }
+      var isBinnewsActivated = false;
+      if ((typeof $scope.config.binnews) != 'undefined') {
+        isBinnewsActivated = $scope.config.binnews.activated;
+      }
+      var isNzbClubActivated = false;
+      if ((typeof $scope.config.searchengine.nzbclub) != 'undefined') {
+        isNzbClubActivated = $scope.config.searchengine.nzbclub.activated;
+      }
+      var isFindnzbActivated = false;
+      if ((typeof $scope.config.searchengine.findnzb) != 'undefined') {
+        isFindnzbActivated = $scope.config.searchengine.findnzb.activated;
+      }
+      var isNzbgetActivated = false;
+      if ((typeof $scope.config.nzbget) != 'undefined') {
+        isNzbgetActivated = $scope.config.nzbget.activated;
+      }
+      var isSabnzbdActivated = false;
+      if ((typeof $scope.config.sabnzbd) != 'undefined') {
+        isSabnzbdActivated = $scope.config.sabnzbd.activated;
+      }
+
       var pages = [
-        {id: 'app.config', text: 'Configuration', checked: false, icon: null},
-        {id: 'app.searchWithBinnews', text: 'Binnews', checked: false, icon: null}
+        {id: 'app.config', text: 'Configuration', checked: false, activated: true, icon: null},
+        {id: 'app.searchWithNzbsu', text: 'Nzb.su', checked: false, activated: isApiKeyActivated, icon: null},
+        {id: 'app.searchWithBinnews', text: 'Binnews', checked: false, activated: isBinnewsActivated, icon: null},
+        {id: 'app.searchWithNzbclub', text: 'Nzbclub', checked: false, activated: isNzbClubActivated, icon: null},
+        {id: 'app.searchWithFindnzb', text: 'Findnzb', checked: false, activated: isFindnzbActivated, icon: null},
+        {id: 'app.nzbget.queue', text: 'Nzbget', checked: false, activated: isNzbgetActivated, icon: null},
+        {id: 'app.sabnzbd.queue', text: 'Sabnzbd', checked: false, activated: isSabnzbdActivated, icon: null},
       ];
+
+      var activatedPages = [];
+
+      var pageAvailable = false;
 
       angular.forEach(pages, function (page) {
         if ((typeof $scope.config.defaultPageId) != 'undefined' && $scope.config.defaultPageId == page.id) {
           page.checked = true;
+          pageAvailable = true;
+        }
+
+        if (page.activated) {
+          activatedPages.push(page);
         }
       });
 
-      return pages;
+      if (!pageAvailable) {
+        $scope.config.defaultPageId = 'app.config';
+        activatedPages[0].checked = true;
+      }
+
+      return activatedPages;
     };
 
     $scope.submitConfig = function () {
@@ -144,4 +194,5 @@ mainModule.controller('configCtrl',
       return version;
     }
   }
-);
+)
+;
