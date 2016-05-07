@@ -66,8 +66,8 @@ mainModule.controller('configCtrl', [
 
       $scope.getPages = function () {
         var pages = [
-          {id: 'config', text: 'Configuration', checked: false, icon: null},
-          {id: 'searchWithBinnews', text: 'Binnews', checked: false, icon: null}
+          {id: 'app.config', text: 'Configuration', checked: false, icon: null},
+          {id: 'app.searchWithBinnews', text: 'Binnews', checked: false, icon: null}
         ];
 
         angular.forEach(pages, function (page) {
