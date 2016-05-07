@@ -6,11 +6,11 @@ mainModule.controller('redirectCtrl',
     $scope.config = {};
 
     $ionicPlatform.ready(function () {
-      /*
-       $ionicViewService.nextViewOptions({
+
+      $ionicHistory.nextViewOptions({
        disableBack: true
        });
-       */
+
       //$ionicLoading.show();
       configService.initDB();
       configService.getActualConfig()
