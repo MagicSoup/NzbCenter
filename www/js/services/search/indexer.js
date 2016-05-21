@@ -7,7 +7,7 @@ services.factory('searchIndexerService',
             rssService) {
 
     var currentService = {};
-
+    //http://www.binsearch.info/?action=nzb&319051420=1
     function buildSearchUrl(baseUrl, apiKey, filter) {
       var searchUrl = baseUrl + '?apikey=' + apiKey + '&limit=10&t=search&o=xml&q=' + filter;
       return searchUrl;

@@ -17,14 +17,16 @@ services.factory('htmlService',
     };
 
     function extractTrNodeContent(trNode) {
-      var data = 'undefined';
+      var data = {};
       if ((typeof trNode != 'undefined') && trNode.cells.length > 3) {
+        var idContent = trNode.cells[1].firstChild.name;
         var tdDataNode = trNode.cells[2];
         var mapContent = extractTdTextContent(tdDataNode.textContent);
+        var link = "http://www.binsearch.info/?action=nzb&" + idContent + "=1"
         data = {
           'title': mapContent['title'],
           'publicationDate': '',
-          'link': '',
+          'link': link,
           'description': '',
           'length': mapContent['size']
         };
@@ -38,12 +40,10 @@ services.factory('htmlService',
       var parser = new DOMParser();
       var doc = parser.parseFromString(content, "text/html");
       var trs = doc.evaluate('//table[contains(@id, "r2")]//tr[@bgcolor]', doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-      for (var l = 0; l < trs.snapshotLength; l++) {
+      for (var l = 1; l < trs.snapshotLength; l++) {
         var tr = trs.snapshotItem(l);
         var data = extractTrNodeContent(tr);
-        if((typeof data != 'undefined')){
-          datas.push(data);
-        }
+        datas.push(data);
       }
       return datas;
     };
