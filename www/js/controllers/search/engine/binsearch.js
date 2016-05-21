@@ -27,7 +27,7 @@ mainModule.controller('searchWithBinsearchCtrl',
     };
 
     function buildSearchUrl(endpoint, filter) {
-      var searchUrl = endpoint.url + '?q=' + filter + '&m=&max=100&adv_g=&adv_age=&adv_sort=date&adv_col=on&xminsize=&xmaxsize=&font=&postdate=';
+      var searchUrl = endpoint.url + '?q=' + filter + '&m=&max=250&adv_g=&adv_age=999&adv_sort=date&adv_col=on&xminsize=&xmaxsize=&font=small&postdate=&hideposter=on&hidegroup=on';
       return searchUrl;
     };
 
