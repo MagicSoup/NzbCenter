@@ -23,9 +23,9 @@
     <ion-content>
       <div class="list">
         <div class="item item-icon-right item-divider" ng-show="(config.searchengine.findnzb.activated || config.searchengine.nzbclub.activated)"><i class="icon ion-search"></i>Moteur(s) de recherche</div>
+        <a class="item" menu-close ui-sref="app.searchWithBinsearch" ng-show="config.searchengine.binsearch.activated">Binsearch</a>
         <a class="item" menu-close ui-sref="app.searchWithFindnzb" ng-show="config.searchengine.findnzb.activated">Findnzb</a>
         <a class="item" menu-close ui-sref="app.searchWithNzbclub" ng-show="config.searchengine.nzbclub.activated">Nzbclub</a>
-        <!--a class="item" menu-close ui-sref="app.searchWithBinsearch" ng-show="config.searchengine.binsearch.activated">Binsearch</a-->
         <div class="item item-icon-right item-divider" ng-show="config.apikey.activated && (config.apikey.nzbsu != '' || config.apikey.nzbis != '')"><i class="icon ion-ios-filing"></i>Indexeur(s)</div>
         <a class="item" menu-close ui-sref="app.searchWithBinnews" ng-show="config.binnews.activated">Binnews</a>
         <a class="item" menu-close ui-sref="app.searchWithNzbsu" ng-show="config.apikey.activated && config.apikey.nzbsu != ''">Nzbsu</a>
