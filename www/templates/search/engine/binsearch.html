@@ -1,0 +1,24 @@
+<ion-view view-title="Rechercher avec Binsearch" data-ng-init="init()">
+  <ion-content>
+    <form ng-submit="submitSearch(filters.query)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Mot(s) clé(s) :</span>
+          <input type="text" name="filterNzbclub" ng-model="filters.query" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Rechercher</button>
+        </label>
+      </div>
+    </form>
+    <ion-list ng-show="isFullyLoaded">
+      <ion-item class="item-divider">
+        <div class="search-col-length">Taille</div>
+        <div>Nom du fichier</div>
+      </ion-item>
+      <ion-item ng-repeat="data in datas" ng-click="openDownloadPopover($event,data.link)">
+        <div class="search-col-length">{{data.length}}</div>
+        <div>{{data.title}}</div>
+      </ion-item>
+    </ion-list>
+</ion-view>

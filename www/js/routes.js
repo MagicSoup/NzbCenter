@@ -37,6 +37,23 @@ module.config(function ($stateProvider, $urlRouterProvider) {
       }
     })
 
+    .state('app.searchWithBinsearch', {
+      url: '/searchWithBinsearch',
+      params: {
+        query: {
+          value: 'empty',
+          squash: false
+        },
+        hiddenParam: 'YES'
+      },
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/search/engine/binsearch.html',
+          controller: 'searchWithBinsearchCtrl'
+        }
+      }
+    })
+
     .state('app.searchWithFindnzb', {
       url: '/searchWithFindnzb',
       params: {

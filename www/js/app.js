@@ -36,6 +36,9 @@ angular.module('nzb-manager',
   .constant('sabnzbEndpoint', {
     url: 'http://localhost:8100/sabnzbd'
   })
+  .constant('binsearchSearchEndpoint', {
+    url: 'http://localhost:8100/binsearch'
+  })
   .constant('findnzbSearchEndpoint', {
     url: 'http://localhost:8100/rss'
   })

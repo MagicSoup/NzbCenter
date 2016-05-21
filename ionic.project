@@ -37,6 +37,10 @@
     {
       "path": "/new_rss",
       "proxyUrl": "http://www.binnews.in/new_rss"
+    },
+    {
+      "path": "/binsearch",
+      "proxyUrl": "http://www.binsearch.info/"
     }
   ]
 }
