@@ -44,11 +44,17 @@ mainModule.controller('searchWithFindnzbCtrl',
       $scope.isFullyLoaded = false;
       var searchUrl = buildSearchUrl(findnzbSearchEndpoint, query);
       searchEngineService.search(searchUrl)
-        .then(function (datas) {
+        .then(
+        function (datas) {
           $scope.datas = datas;
           $scope.isFullyLoaded = true;
           $scope.splashScreenHide();
-        });
+        },
+        function (errors) {
+          $scope.splashScreenHide();
+          $scope.displayErrorMessage('Une erreur est survenue lors de la recherche avec Findnzb. Vérifiez que le service est toujours disponible.');
+        }
+      );
     };
 
     function downloadUrl(url) {

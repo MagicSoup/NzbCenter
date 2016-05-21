@@ -42,11 +42,17 @@ mainModule.controller('searchWithNzbclubCtrl',
       $scope.isFullyLoaded = false;
       var searchUrl = buildSearchUrl(nzbclubSearchEndpoint, query);
       searchEngineService.search(searchUrl)
-        .then(function (datas) {
+        .then(
+        function (datas) {
           $scope.datas = datas;
           $scope.isFullyLoaded = true;
           $scope.splashScreenHide();
-        });
+        },
+        function (errors) {
+          $scope.splashScreenHide();
+          $scope.displayErrorMessage('Une erreur est survenue lors de la recherche avec NzbClub. Vérifiez que le service est toujours disponible.');
+        }
+      );
     };
 
     $scope.downloadUrlWithSabnzbd = function (url) {
