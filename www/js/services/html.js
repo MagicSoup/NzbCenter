@@ -5,22 +5,28 @@ services.factory('htmlService',
 
     var currentService = {};
 
-    currentService.extractItemContent = function (item) {
-      var data = {};
-      if ((typeof item.enclosure != 'undefined')) {
+    function extractTdTextContent(content) {
+      var contentMap = {};
+      var contentSplit = content.split('collection size:');
+      contentMap['title'] = contentSplit[0].trim();
+
+      var sizeSplit = contentSplit[1].split(',');
+      contentMap['size'] = sizeSplit[0].trim();
+
+      return contentMap;
+    };
+
+    function extractTrNodeContent(trNode) {
+      var data = 'undefined';
+      if ((typeof trNode != 'undefined') && trNode.cells.length > 3) {
+        var tdDataNode = trNode.cells[2];
+        var mapContent = extractTdTextContent(tdDataNode.textContent);
         data = {
-          'title': item.title.trim(),
-          'publicationDate': item.pubDate,
-          'link': item.enclosure._url,
-          'description': item.description,
-          'length': Math.floor(item.enclosure._length / 1024 / 1024) + ' Mo'
-        };
-      } else {
-        data = {
-          'title': item.title.trim(),
-          'publicationDate': item.pubDate,
-          'link': item.link,
-          'description': item.description
+          'title': mapContent['title'],
+          'publicationDate': '',
+          'link': '',
+          'description': '',
+          'length': mapContent['size']
         };
       }
 
@@ -31,9 +37,13 @@ services.factory('htmlService',
       var datas = [];
       var parser = new DOMParser();
       var doc = parser.parseFromString(content, "text/html");
-      var trs = doc.evaluate( '//table[contains(@id, "r2")]//tr[@bgcolor]' ,doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
-      for (var l = 0; l < trs.snapshotLength; l++){
+      var trs = doc.evaluate('//table[contains(@id, "r2")]//tr[@bgcolor]', doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+      for (var l = 0; l < trs.snapshotLength; l++) {
         var tr = trs.snapshotItem(l);
+        var data = extractTrNodeContent(tr);
+        if((typeof data != 'undefined')){
+          datas.push(data);
+        }
       }
       return datas;
     };
