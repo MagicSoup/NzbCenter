@@ -27,6 +27,7 @@
         <div class="col col-40 col-binnews">
           <div ng-if="data.content.highQuality != null"><span class="informations">Réso :</span> {{data.content.highQuality}}</div>
           <div><span class="informations">Taille :</span> {{data.content.size}}</div>
+          <div ng-if="data.content.language != null"><span class="informations">Langue :</span> {{data.content.language}}</div>
         </div>
         <div class="col col-binnews">
           <h2>{{data.source.title}}</h2>
