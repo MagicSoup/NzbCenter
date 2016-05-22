@@ -8,18 +8,21 @@ mainModule.controller('redirectCtrl',
     $ionicPlatform.ready(function () {
 
       $ionicHistory.nextViewOptions({
-       disableBack: true
-       });
-
-      //$ionicLoading.show();
+        disableBack: true
+      });
       configService.initDB();
       configService.getActualConfig()
         .then(function (actualConfig) {
-          $scope.config = actualConfig;
-          //$ionicLoading.hide();
-          if ((typeof $scope.config.defaultPageId) != 'undefined' && $scope.config.defaultPageId != '') {
-            $state.go($scope.config.defaultPageId)
-          } else {
+          if (actualConfig != null) {
+            $scope.config = actualConfig;
+            if ((typeof $scope.config.defaultPageId) != 'undefined' && $scope.config.defaultPageId != '') {
+              $state.go($scope.config.defaultPageId)
+            }
+            else {
+              $state.go('app.config');
+            }
+          }
+          else {
             $state.go('app.config');
           }
         });
