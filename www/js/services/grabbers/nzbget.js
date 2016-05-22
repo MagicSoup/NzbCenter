@@ -25,7 +25,6 @@ services.factory('nzbgetService',
     currentService.getListOfGroups = function (configParam) {
 
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "listgroups",
         "params": [0],
@@ -45,7 +44,6 @@ services.factory('nzbgetService',
     currentService.getListOfFiles = function (configParam, groupId) {
 
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "listFiles",
         "params": [0, 0, groupId],
@@ -65,7 +63,6 @@ services.factory('nzbgetService',
     currentService.getServerHistory = function (configParam, showHidden) {
 
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "history",
         "params": [showHidden],
@@ -144,7 +141,6 @@ services.factory('nzbgetService',
 
     currentService.deleteQueue = function (configParam, idQueue) {
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "editqueue",
         "params": ["GroupDelete", 0, "", [idQueue]],
@@ -163,7 +159,6 @@ services.factory('nzbgetService',
 
     currentService.pauseQueue = function (configParam, idQueue) {
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "editqueue",
         "params": ["GroupPause", 0, "", [idQueue]],
@@ -182,7 +177,6 @@ services.factory('nzbgetService',
 
     currentService.resumeQueue = function (configParam, idQueue) {
       var url = configParam.url + '/jsonrpc';
-      var version = configParam.version;
       var data = {
         "method": "editqueue",
         "params": ["GroupResume", 0, "", [idQueue]],
@@ -199,9 +193,72 @@ services.factory('nzbgetService',
       });
     };
 
-    currentService.deleteHistory = function (configParam, idHistory) {
+    currentService.moveQueueWithOffset = function (configParam, offset, idQueue) {
       var url = configParam.url + '/jsonrpc';
       var version = configParam.version;
+      var data = {
+        "method": "editqueue",
+        "params": ["GroupMoveOffset", offset, "", [idQueue]],
+        "id": 1
+      };
+
+      return $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          'Authorization': 'Basic ' + getBasicAuth(configParam.username, configParam.password)
+        },
+        data: data
+      });
+    };
+
+
+    currentService.moveQueueUp = function (configParam, idQueue) {
+      return currentService.moveQueueWithOffset(configParam,-1,idQueue);
+    };
+
+    currentService.moveQueueDown = function (configParam, idQueue) {
+      return currentService.moveQueueWithOffset(configParam,1,idQueue);
+    };
+
+    currentService.moveQueueToTop = function (configParam, idQueue) {
+      var url = configParam.url + '/jsonrpc';
+      var data = {
+        "method": "editqueue",
+        "params": ["GroupMoveTop", 0, "", [idQueue]],
+        "id": 1
+      };
+
+      return $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          'Authorization': 'Basic ' + getBasicAuth(configParam.username, configParam.password)
+        },
+        data: data
+      });
+    };
+
+    currentService.moveQueueToBottom = function (configParam, idQueue) {
+      var url = configParam.url + '/jsonrpc';
+      var data = {
+        "method": "editqueue",
+        "params": ["GroupMoveBottom", 0, "", [idQueue]],
+        "id": 1
+      };
+
+      return $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          'Authorization': 'Basic ' + getBasicAuth(configParam.username, configParam.password)
+        },
+        data: data
+      });
+    };
+
+    currentService.deleteHistory = function (configParam, idHistory) {
+      var url = configParam.url + '/jsonrpc';
       var data = {
         "method": "editqueue",
         "params": ["HistoryDelete", 0, "", [idHistory]],
