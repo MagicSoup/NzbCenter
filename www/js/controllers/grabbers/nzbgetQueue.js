@@ -93,11 +93,13 @@ mainModule.controller('nzbgetQueueCtrl',
     $scope.moveUpQueueItem = function(data){
       loggerService.turnOn();
       nzbgetService.moveQueueUp($scope.config.nzbget, data.id);
+      $scope.initQueues();
     };
 
     $scope.moveDownQueueItem = function(data){
       loggerService.turnOn();
       nzbgetService.moveQueueDown($scope.config.nzbget, data.id);
+      $scope.initQueues();
     };
 
     function extractQueueItems(items) {
