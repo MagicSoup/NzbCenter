@@ -17,7 +17,32 @@ mainModule.controller('configCtrl',
     $scope.filterCategoryText = 'Filtrer les catégories';
     $scope.filterDefaultPage = 'Page par défaut';
     $scope.categories = [];
-    $scope.config = {};
+    $scope.config = {
+      apikey: {
+        activated: false
+      },
+      binnews: {
+        activated: false
+      },
+      nzbget: {
+        activated: false
+      },
+      sabnzbd: {
+        activated: false
+      },
+      searchengine: {
+        binsearch: {
+          activated: false
+        },
+        findnzb: {
+          activated: false
+        },
+        nzbclub: {
+          activated: false
+        }
+      }
+    };
+
     $scope.pages = [];
 
 
@@ -29,7 +54,9 @@ mainModule.controller('configCtrl',
       configService.initDB();
       configService.getActualConfig()
         .then(function (actualConfig) {
-          $scope.config = actualConfig;
+          if (actualConfig != null) {
+            $scope.config = actualConfig;
+          }
           $scope.categories = $scope.getCategories();
           $scope.pages = $scope.getPages();
         });
@@ -70,12 +97,18 @@ mainModule.controller('configCtrl',
         isBinnewsActivated = $scope.config.binnews.activated;
       }
       var isNzbClubActivated = false;
-      if ((typeof $scope.config.searchengine.nzbclub) != 'undefined') {
-        isNzbClubActivated = $scope.config.searchengine.nzbclub.activated;
-      }
       var isFindnzbActivated = false;
-      if ((typeof $scope.config.searchengine.findnzb) != 'undefined') {
-        isFindnzbActivated = $scope.config.searchengine.findnzb.activated;
+      var isBinsearchActivated = false;
+      if ((typeof $scope.config.searchengine) != 'undefined') {
+        if ((typeof $scope.config.searchengine.nzbclub) != 'undefined') {
+          isNzbClubActivated = $scope.config.searchengine.nzbclub.activated;
+        }
+        if ((typeof $scope.config.searchengine.findnzb) != 'undefined') {
+          isFindnzbActivated = $scope.config.searchengine.findnzb.activated;
+        }
+        if ((typeof $scope.config.searchengine.binsearch) != 'undefined') {
+          isBinsearchActivated = $scope.config.searchengine.binsearch.activated;
+        }
       }
       var isNzbgetActivated = false;
       if ((typeof $scope.config.nzbget) != 'undefined') {
@@ -92,6 +125,7 @@ mainModule.controller('configCtrl',
         {id: 'app.searchWithBinnews', text: 'Binnews', checked: false, activated: isBinnewsActivated, icon: null},
         {id: 'app.searchWithNzbclub', text: 'Nzbclub', checked: false, activated: isNzbClubActivated, icon: null},
         {id: 'app.searchWithFindnzb', text: 'Findnzb', checked: false, activated: isFindnzbActivated, icon: null},
+        {id: 'app.searchWithBinsearch', text: 'Binsearch', checked: false, activated: isBinsearchActivated, icon: null},
         {id: 'app.nzbget.queue', text: 'Nzbget', checked: false, activated: isNzbgetActivated, icon: null},
         {id: 'app.sabnzbd.queue', text: 'Sabnzbd', checked: false, activated: isSabnzbdActivated, icon: null},
       ];

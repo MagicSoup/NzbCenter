@@ -48,7 +48,7 @@ function configService($q, Loki) {
 
   function getActualConfig() {
     return $q(function (resolve, reject) {
-      var actualConfig = {};
+      var actualConfig = null;
       getConfigs().then(function (configs) {
         if (typeof configs[0] != 'undefined') {
           actualConfig = configs[0];
