@@ -17,31 +17,7 @@ mainModule.controller('configCtrl',
     $scope.filterCategoryText = 'Filtrer les catégories';
     $scope.filterDefaultPage = 'Page par défaut';
     $scope.categories = [];
-    $scope.config = {
-      apikey: {
-        activated: false
-      },
-      binnews: {
-        activated: false
-      },
-      nzbget: {
-        activated: false
-      },
-      sabnzbd: {
-        activated: false
-      },
-      searchengine: {
-        binsearch: {
-          activated: false
-        },
-        findnzb: {
-          activated: false
-        },
-        nzbclub: {
-          activated: false
-        }
-      }
-    };
+    $scope.config = {}
 
     $scope.pages = [];
 
@@ -54,9 +30,7 @@ mainModule.controller('configCtrl',
       configService.initDB();
       configService.getActualConfig()
         .then(function (actualConfig) {
-          if (actualConfig != null) {
-            $scope.config = actualConfig;
-          }
+          $scope.config = actualConfig;
           $scope.categories = $scope.getCategories();
           $scope.pages = $scope.getPages();
         });

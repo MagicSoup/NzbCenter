@@ -32,16 +32,16 @@ services.factory('loggerService', function () {
 
       switch (type) {
         case 'e':
-          console.error(message);
+          console.error("[NzbCenter] => " + message);
           break;
         case 'w':
-          console.warn(message);
+          console.warn("[NzbCenter] => " + message);
           break;
         case 'd':
-          console.debug(message);
+          console.debug("[NzbCenter] => " + message);
           break;
         default:
-          console.log(message);
+          console.log("[NzbCenter] => " + message);
           break;
       }
     }

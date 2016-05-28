@@ -19,6 +19,7 @@ angular.module('nzb-manager',
   })
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
+      console.log("NzbCenter : Apps.js")
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
@@ -34,24 +35,24 @@ angular.module('nzb-manager',
     template: '<ion-spinner icon="lines"></ion-spinner>'
   })
   .constant('sabnzbEndpoint', {
-    url: 'http://localhost:8100/sabnzbd'
+    url: 'https://campi-nas.net/sabnzbd'
   })
   .constant('binsearchSearchEndpoint', {
-    url: 'http://localhost:8100/binsearch'
+    url: 'http://binsearch.info/'
   })
   .constant('findnzbSearchEndpoint', {
-    url: 'http://localhost:8100/rss'
+    url: 'http://findnzb.net/rss'
   })
   .constant('findnzbGetEndpoint', {
-    url: 'http://localhost:8100/nzb'
+    url: 'http://findnzb.net/nzb'
   })
   .constant('nzbclubSearchEndpoint', {
-    url: 'http://localhost:8100/nzbrss.aspx'
+    url: 'https://www.nzbclub.com/nzbrss.aspx'
   })
   .constant('nzbsuApiEndpoint', {
-    url: 'http://localhost:8100/api'
+    url: 'https://api.nzb.su/api'
   })
   .constant('binnewsCategoryEndpoint', {
-    url: 'http://localhost:8100/new_rss'
+    url: 'http://www.binnews.in/new_rss'
   })
 ;
