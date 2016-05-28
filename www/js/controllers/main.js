@@ -7,12 +7,12 @@ mainModule.controller('mainCtrl',
     $scope.hasMessageToDisplay = false;
     $scope.type = "balanced";
     var hideMessageFunction;
-/*
+
     configService.initDB();
     configService.getActualConfig().then(function (config) {
       $scope.config = config;
     });
-*/
+
     $scope.$on('config:updated', function (event, data) {
       $scope.config = data;
     });
